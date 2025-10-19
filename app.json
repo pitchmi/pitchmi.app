@@ -1,4 +1,9 @@
 {
-  "name": "pitchmi",
-  "slug": "pitchmi"
+  "expo": {
+    "name": "pitchmi",
+    "slug": "pitchmi",
+    "scheme": "pitchmi",
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": true }
+  }
 }
