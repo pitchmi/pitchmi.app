@@ -1,38 +1,103 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-# dependencies
+# -------------------------------
+# 🔧 NODE & DEPENDENCIES
+# -------------------------------
 node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
 
-# Expo
+# -------------------------------
+# 📱 EXPO / REACT NATIVE
+# -------------------------------
 .expo/
+.expo-shared/
 dist/
 web-build/
+build/
 expo-env.d.ts
+*.jsbundle
 
-# Native
-*.orig.*
+# -------------------------------
+# 🧩 EAS (Expo Application Services)
+# -------------------------------
+*.tar.gz
+eas.json
+credentials.json
+
+# -------------------------------
+# ⚙️ METRO BUNDLER
+# -------------------------------
+.metro-health-check*
+.cache/
+logs/
+
+# -------------------------------
+# 🔐 CREDENTIALS / SECRETS
+# -------------------------------
+*.key
+*.keystore
 *.jks
 *.p8
 *.p12
-*.key
 *.mobileprovision
-
-# Metro
-.metro-health-check*
-
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
-
-# macOS
-.DS_Store
 *.pem
+*.cert
+*.csr
 
-# local env files
+# -------------------------------
+# 🌿 ENVIRONMENT FILES
+# -------------------------------
+.env
+.env.local
+.env.development
+.env.production
 .env*.local
+.env*.backup
 
-# typescript
+# -------------------------------
+# 🧪 TESTING / COVERAGE
+# -------------------------------
+coverage/
+jest-report/
+*.spec.js
+*.spec.ts
+*.test.js
+*.test.ts
+
+# -------------------------------
+# 🧰 TYPESCRIPT
+# -------------------------------
 *.tsbuildinfo
+tsconfig.tsbuildinfo
 
+# -------------------------------
+# 🖥️ SYSTEM / OS
+# -------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
+
+# -------------------------------
+# 🧠 IDE / EDITORS
+# -------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# -------------------------------
+# 🚫 PROJECT EXAMPLES / DOCS
+# -------------------------------
 app-example
+docs/
+README-draft.md
+
+# -------------------------------
+# 🔄 MISC
+# -------------------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

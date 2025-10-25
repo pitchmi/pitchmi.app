@@ -1,0 +1,52 @@
+# ----------------------------------------------------
+# 🧩 Base config for Pitchmi (Expo + TypeScript)
+# ----------------------------------------------------
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+
+# ---------------------------------------
+# 📜 Markdown / docs
+# ---------------------------------------
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+
+# ---------------------------------------
+# 🧠 JSON / YAML / config
+# ---------------------------------------
+[*.{json,jsonc,yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# ---------------------------------------
+# 💻 Scripts
+# ---------------------------------------
+[*.{sh,bash}]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+
+[*.{bat,cmd}]
+end_of_line = crlf
+
+# ---------------------------------------
+# 🎨 TypeScript / JavaScript
+# ---------------------------------------
+[*.{js,jsx,ts,tsx}]
+quote_type = single
+indent_size = 2
+max_line_length = 100
+
+# ---------------------------------------
+# ⚙️ IDE-specific
+# ---------------------------------------
+[*.{editorconfig,prettierrc,eslintrc}]
+indent_size = 2
+insert_final_newline = true

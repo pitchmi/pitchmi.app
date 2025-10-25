@@ -1,0 +1,98 @@
+# ----------------------------------------
+# 🔧 Git text/line-endings
+# ----------------------------------------
+# Normaliza todo a LF en el repo (Windows convierte al checkout si procede)
+*                 text=auto eol=lf
+
+# Scripts
+*.sh              text eol=lf
+*.bash            text eol=lf
+*.bat             text eol=crlf
+*.cmd             text eol=crlf
+
+# Markdown / docs con diff bonito
+*.md              text diff=markdown
+*.mdx             text diff=markdown
+
+# JSON / config con diffs útiles
+*.json            text diff=json
+*.jsonc           text diff=json
+*.yml             text
+*.yaml            text
+*.xml             text
+
+# TypeScript / JavaScript
+*.ts              text
+*.tsx             text
+*.js              text
+*.jsx             text
+*.mjs             text
+*.cjs             text
+
+# Gradle / propiedades
+*.gradle          text eol=lf
+*.properties      text eol=lf
+
+# iOS project files suelen ser texto pero con CRLF raros
+*.pbxproj         text eol=lf
+*.storyboard      text eol=lf
+*.xib             text eol=lf
+
+# ----------------------------------------
+# 🔒 Lockfiles y conflictos
+# ----------------------------------------
+# Evita guerras de merge en lockfiles. Preferimos el del branch actual;
+# si hay conflicto, regenera con el package manager.
+pnpm-lock.yaml    merge=ours
+yarn.lock         merge=ours
+package-lock.json merge=ours
+
+# ----------------------------------------
+# 🖼️ Binarios (no intentar diffs)
+# ----------------------------------------
+*.png             binary
+*.jpg             binary
+*.jpeg            binary
+*.gif             binary
+*.webp            binary
+*.ico             binary
+*.pdf             binary
+*.ttf             binary
+*.otf             binary
+*.woff            binary
+*.woff2           binary
+*.mp4             binary
+*.mov             binary
+*.aab             binary
+*.apk             binary
+*.ipa             binary
+*.keystore        binary
+*.jks             binary
+*.p8              binary
+*.p12             binary
+*.mobileprovision binary
+
+# ----------------------------------------
+# 🧩 GitHub linguist (estadísticas y PRs)
+# ----------------------------------------
+# Archivos generados: no afectan a porcentajes de lenguaje
+dist/**           linguist-generated=true
+build/**          linguist-generated=true
+web-build/**      linguist-generated=true
+
+# Terceros / vendored
+vendor/**         linguist-vendored=true
+
+# Código de Expo Router compilado a partir de plantillas
+app/**/build/**   linguist-generated=true
+
+# ----------------------------------------
+# 🧪 Tests / snapshots
+# ----------------------------------------
+__snapshots__/**  linguist-generated=true
+
+# ----------------------------------------
+# 🗂️ Miscelánea
+# ----------------------------------------
+# Asegura diffs de SVG como texto
+*.svg             text

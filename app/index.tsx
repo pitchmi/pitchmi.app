@@ -1,11 +1,6 @@
-import { View, Text } from "react-native";
-import { StatusBar } from "expo-status-bar";
+// app/index.tsx
+import { Redirect } from "expo-router";
 
-export default function Index() {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Hola Pitchmi 👋</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+export default function AppIndex() {
+  return <Redirect href="/(tabs)" />; // también vale "/(tabs)/index"
 }

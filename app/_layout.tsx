@@ -1,12 +1,11 @@
+// app/_layout.tsx
 import { Stack } from "expo-router";
+import { SessionProvider } from "@/lib/session";
 
 export default function RootLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        gestureEnabled: true,
-      }}
-    />
+    <SessionProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </SessionProvider>
   );
 }
