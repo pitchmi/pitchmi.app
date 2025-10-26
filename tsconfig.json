@@ -1,22 +1,16 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": "./node_modules/expo/tsconfig.base",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+      "@/*": ["./*"]
+    },
+    "jsx": "react-native",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true
   },
-  "include": [
-    "app",
-    "components",
-    "lib",
-    "hooks",
-    "types"
-  ],
-  "exclude": [
-    "**/*.test.ts",
-    "**/__tests__/**"
-  ]
+  "include": ["app", "components", "lib", "hooks", "types"],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/__tests__/**"]
 }

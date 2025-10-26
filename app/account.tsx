@@ -173,7 +173,7 @@ export default function Account() {
           <Text style={styles.label}>Avatar</Text>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
             <Image
-              source={avatar ? { uri: avatar } : require("@/assets/placeholder.png")}
+              source={avatar ? { uri: avatar } : require("../assets/placeholder.png")}
               style={{ width: 84, height: 84, borderRadius: 42, backgroundColor: "#eef2f6" }}
             />
             <View style={{ flexDirection: "row", gap: 8 }}>

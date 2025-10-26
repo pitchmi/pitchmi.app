@@ -1,6 +1,38 @@
-﻿node_modules
+﻿# ── Env & secretos
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+credentials.json
+
+# ── Artefactos Expo/RN
 .expo
-.eas/build
+.expo-shared
+.expo/web-build
+web-build/
+dist/
+build/
+expo-build/
+.expo-dev-client
+
+# ── Android/iOS (si prebuild)
+android/app/build/
+android/.gradle/
+ios/build/
+ios/Pods/
+
+# ── IDE / SO / cachés
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.tmp/
+.temp/
+.cache/
+
+# ── Logs
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
+node_modules
