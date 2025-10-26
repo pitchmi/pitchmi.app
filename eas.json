@@ -1,17 +1,9 @@
 {
   "cli": { "version": ">= 3.16.0", "appVersionSource": "remote" },
   "build": {
-    "development": {
-      "distribution": "internal",
-      "developmentClient": true,
-      "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "https://bfrhzgqjfnnnduxunrrb.supabase.co",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmcmh6Z3FqZm5ubmR1eHVucnJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2MDQyMjcsImV4cCI6MjA3NjE4MDIyN30.WyDxL1YjPNQ6qI5w_UH6X8quFaFUHokjwb7Ms0vRKHU",
-        "EXPO_PUBLIC_GOOGLE_MAPS_API_KEY": "AIzaSyD0HhkDTAv5oKdu4dTuiW1xsXwvPwv5MXM"
-      }
-    },
+    "development": { "distribution": "internal", "developmentClient": true },
     "preview": { "distribution": "internal" },
-    "production": { "autoIncrement": true },
+    "production": { "distribution": "store", "autoIncrement": true },
     "simulator": { "ios": { "simulator": true } }
   },
   "submit": { "ios": {} }
