@@ -15,11 +15,10 @@
         --text-main: #111827;
         --text-muted: #6b7280;
         --brand: #3d4e5e;
-        --brand-soft: #e4edf5;
         --accent: #8fd3ff;
-        --radius-lg: 24px;
-        --radius-md: 16px;
-        --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.14);
+        --radius-lg: 26px;
+        --radius-md: 18px;
+        --shadow-soft: 0 20px 55px rgba(15, 23, 42, 0.18);
       }
 
       * {
@@ -43,7 +42,7 @@
       }
 
       .page {
-        max-width: 1080px;
+        max-width: 1120px;
         margin: 0 auto;
         padding: 32px 20px 64px;
       }
@@ -52,7 +51,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 32px;
+        margin-bottom: 28px;
       }
 
       .logo {
@@ -90,15 +89,23 @@
       main {
         display: flex;
         flex-direction: column;
-        gap: 56px;
+        gap: 40px;
       }
 
       /* HERO */
 
+      .hero-shell {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 32px;
+        padding: 26px 24px 26px;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(148, 163, 184, 0.3);
+      }
+
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        gap: 28px;
         align-items: center;
       }
 
@@ -146,7 +153,7 @@
         border: 1px solid rgba(148, 163, 184, 0.7);
         font-size: 14px;
         cursor: pointer;
-        background: rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.7);
         color: var(--text-main);
         display: inline-flex;
         align-items: center;
@@ -161,20 +168,27 @@
       }
 
       .hero-card {
-        background: radial-gradient(circle at top, #e0f2fe, #ffffff);
-        border-radius: var(--radius-lg);
-        padding: 16px 16px 18px;
-        box-shadow: var(--shadow-soft);
-        border: 1px solid rgba(148, 163, 184, 0.35);
         position: relative;
-        overflow: hidden;
+      }
+
+      .hero-card-inner {
+        border-radius: var(--radius-lg);
+        padding: 14px 14px 16px;
+        background: linear-gradient(
+          135deg,
+          rgba(248, 250, 252, 1),
+          rgba(226, 232, 240, 0.95)
+        );
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+        transform: rotate(-2deg);
       }
 
       .hero-card-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
       }
 
       .hero-card-title {
@@ -187,93 +201,87 @@
         padding: 4px 10px;
         border-radius: 999px;
         font-size: 11px;
-        background: rgba(15, 23, 42, 0.8);
+        background: rgba(15, 23, 42, 0.9);
         color: #e5e7eb;
       }
 
       .hero-map {
         border-radius: var(--radius-md);
-        padding: 12px;
+        overflow: hidden;
         position: relative;
-        min-height: 190px;
-        background: linear-gradient(
-          145deg,
-          #dbeafe 0%,
-          #e0f2fe 35%,
-          #e0f7fa 70%,
-          #fefce8 100%
-        );
+      }
+
+      .hero-map-inner {
+        position: relative;
+        border-radius: var(--radius-md);
         overflow: hidden;
       }
 
-      .hero-map-grid {
-        position: absolute;
-        inset: 12px;
-        opacity: 0.45;
-        background-image: linear-gradient(
-            to right,
-            rgba(148, 163, 184, 0.45) 1px,
-            transparent 1px
-          ),
-          linear-gradient(
-            to bottom,
-            rgba(148, 163, 184, 0.45) 1px,
-            transparent 1px
-          );
-        background-size: 26px 26px;
-        border-radius: var(--radius-md);
-        mix-blend-mode: multiply;
+      .hero-map-inner img {
+        display: block;
+        width: 100%;
+        height: 210px;
+        object-fit: cover;
+        filter: saturate(1.05);
       }
 
-      .hero-water {
-        position: absolute;
-        width: 180px;
-        height: 180px;
-        background: radial-gradient(circle at 30% 30%, #e0f2fe, #bfdbfe);
-        opacity: 0.75;
-        border-radius: 45% 55% 55% 45%;
-        top: 50%;
-        left: -40px;
-        transform: translateY(-40%);
-      }
+      /* IMPORTANTE:
+         Pon en el proyecto un archivo "map-hero.jpg" en la misma carpeta
+         que este index.html, con un mapa real (captura de tu app o mapa).
+      */
 
-      .hero-park {
+      .hero-marker,
+      .hero-marker-secondary {
         position: absolute;
-        width: 120px;
-        height: 90px;
-        background: radial-gradient(circle at 30% 30%, #bbf7d0, #4ade80);
-        opacity: 0.65;
-        border-radius: 55% 45% 50% 50%;
-        right: 8%;
-        top: 18%;
+        border-radius: 999px;
       }
 
       .hero-marker {
-        position: absolute;
         width: 22px;
         height: 22px;
-        border-radius: 999px;
         background: radial-gradient(circle at 30% 30%, #ffffff, #fb7185);
-        box-shadow: 0 0 0 10px rgba(248, 113, 113, 0.28);
-        top: 32%;
-        left: 52%;
+        box-shadow: 0 0 0 10px rgba(248, 113, 113, 0.32);
+        top: 36%;
+        left: 54%;
+        animation: pulseMain 2.2s infinite;
       }
 
       .hero-marker-secondary {
-        position: absolute;
-        width: 14px;
-        height: 14px;
-        border-radius: 999px;
+        width: 16px;
+        height: 16px;
         background: radial-gradient(circle at 30% 30%, #ffffff, #22c55e);
-        box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.27);
-        bottom: 24%;
-        right: 18%;
+        box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.26);
+        bottom: 22%;
+        right: 20%;
+        animation: pulseSecondary 2.4s infinite;
       }
 
       .hero-caption {
-        margin-top: 10px;
+        margin-top: 8px;
         font-size: 12px;
         color: var(--text-muted);
+      }
+
+      @keyframes pulseMain {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 8px rgba(248, 113, 113, 0.3);
+        }
+        100% {
+          transform: scale(1.08);
+          box-shadow: 0 0 0 18px rgba(248, 113, 113, 0);
+        }
+      }
+
+      @keyframes pulseSecondary {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.26);
+        }
+        100% {
+          transform: scale(1.05);
+          box-shadow: 0 0 0 14px rgba(34, 197, 94, 0);
+        }
       }
 
       /* FEATURES */
@@ -281,8 +289,8 @@
       .section {
         background: rgba(255, 255, 255, 0.9);
         border-radius: var(--radius-lg);
-        padding: 24px 20px;
-        box-shadow: 0 14px 40px rgba(15, 23, 42, 0.1);
+        padding: 22px 20px;
+        box-shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
         border: 1px solid rgba(148, 163, 184, 0.3);
       }
 
@@ -300,11 +308,11 @@
 
       .feature {
         padding: 14px 14px 16px;
-        border-radius: 16px;
+        border-radius: 18px;
         background: linear-gradient(
           135deg,
           rgba(248, 250, 252, 0.95),
-          rgba(226, 232, 240, 0.95)
+          rgba(229, 231, 235, 0.95)
         );
       }
 
@@ -386,7 +394,7 @@
       }
 
       footer {
-        margin-top: 32px;
+        margin-top: 28px;
         font-size: 11px;
         color: var(--text-muted);
         display: flex;
@@ -412,7 +420,11 @@
         }
 
         .hero-card {
-          order: -1;
+          margin-top: 14px;
+        }
+
+        .hero-card-inner {
+          transform: none;
         }
 
         .features,
@@ -427,7 +439,11 @@
         }
 
         header {
-          margin-bottom: 20px;
+          margin-bottom: 18px;
+        }
+
+        .hero-shell {
+          padding: 20px 16px;
         }
 
         .hero-text h1 {
@@ -452,52 +468,66 @@
 
       <main>
         <!-- HERO -->
-        <section class="hero">
-          <div class="hero-text">
-            <p style="font-size: 13px; color: var(--text-muted); margin: 0 0 4px">
-              Próximamente
-            </p>
-            <h1>Pitchmi es tu mapa del ahora.</h1>
-            <p>
-              Descubre planes, lugares y momentos en tiempo real cerca de ti.
-              Explora el mapa, crea tus propios pitches y guarda tu colección de
-              planes favoritos.
-            </p>
-
-            <div class="hero-cta">
-              <a
-                class="btn-primary"
-                href="mailto:admin@pitchmi.app?subject=Quiero%20probar%20la%20beta%20de%20Pitchmi"
+        <section class="hero-shell">
+          <div class="hero">
+            <div class="hero-text">
+              <p
+                style="
+                  font-size: 13px;
+                  color: var(--text-muted);
+                  margin: 0 0 4px;
+                "
               >
-                Apuntarme a la beta
-              </a>
-              <a class="btn-secondary" href="#como-funciona">
-                Cómo funciona
-              </a>
+                Próximamente
+              </p>
+              <h1>Pitchmi es tu mapa del ahora.</h1>
+              <p>
+                Descubre planes, lugares y momentos en tiempo real cerca de ti.
+                Explora el mapa, crea tus propios pitches y guarda tu colección
+                de planes favoritos.
+              </p>
+
+              <div class="hero-cta">
+                <a
+                  class="btn-primary"
+                  href="mailto:admin@pitchmi.app?subject=Quiero%20probar%20la%20beta%20de%20Pitchmi"
+                >
+                  Apuntarme a la beta
+                </a>
+                <a class="btn-secondary" href="#como-funciona">
+                  Cómo funciona
+                </a>
+              </div>
+
+              <p class="hero-footnote">
+                Pitchmi es un proyecto en desarrollo. Si quieres probar la beta
+                o colaborar, escríbenos a
+                <a href="mailto:admin@pitchmi.app">admin@pitchmi.app</a>.
+              </p>
             </div>
 
-            <p class="hero-footnote">
-              Pitchmi es un proyecto en desarrollo. Si quieres probar la beta o
-              colaborar, escríbenos a
-              <a href="mailto:admin@pitchmi.app">admin@pitchmi.app</a>.
-            </p>
-          </div>
-
-          <div class="hero-card" aria-hidden="true">
-            <div class="hero-card-header">
-              <div class="hero-card-title">Un mapa que se mueve contigo</div>
-              <div class="hero-card-pill">Planes en vivo cerca de ti</div>
-            </div>
-            <div class="hero-map">
-              <div class="hero-map-grid"></div>
-              <div class="hero-water"></div>
-              <div class="hero-park"></div>
-              <div class="hero-marker"></div>
-              <div class="hero-marker-secondary"></div>
-            </div>
-            <div class="hero-caption">
-              Pitches en tiempo real, lugares guardados y rutas que no salen en
-              las guías.
+            <div class="hero-card" aria-hidden="true">
+              <div class="hero-card-inner">
+                <div class="hero-card-header">
+                  <div class="hero-card-title">Un mapa que se mueve contigo</div>
+                  <div class="hero-card-pill">Planes en vivo cerca de ti</div>
+                </div>
+                <div class="hero-map">
+                  <div class="hero-map-inner">
+                    <!-- PON AQUÍ UNA IMAGEN DE MAPA REAL -->
+                    <img
+                      src="map-hero.jpg"
+                      alt="Mapa con planes de Pitchmi"
+                    />
+                    <div class="hero-marker"></div>
+                    <div class="hero-marker-secondary"></div>
+                  </div>
+                </div>
+                <div class="hero-caption">
+                  Pitches en tiempo real, lugares guardados y rutas que no salen
+                  en las guías.
+                </div>
+              </div>
             </div>
           </div>
         </section>
