@@ -1,64 +1,559 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pitchmi – Tu mapa del ahora</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pitchmi – Tu mapa del ahora</title>
+    <meta
+      name="description"
+      content="Pitchmi es tu mapa del ahora. Descubre planes, lugares y momentos en tiempo real cerca de ti. Crea tus pitches y guarda tu colección de planes favoritos."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --bg-card: #ffffff;
+        --text-main: #111827;
+        --text-muted: #6b7280;
+        --brand: #3d4e5e;
+        --brand-soft: #e4edf5;
+        --accent: #8fd3ff;
+        --radius-lg: 24px;
+        --radius-md: 16px;
+        --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.14);
+      }
 
-  <meta name="description" content="Descubre planes y momentos en tiempo real cerca de ti. Explora el mapa, crea tus propios pitches y guarda tu colección de planes favoritos." />
+      * {
+        box-sizing: border-box;
+      }
 
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="https://pitchmi.app/favicon.ico" />
-</head>
-<body>
-  <header class="hero">
-    <div class="hero-inner">
-      <div class="badge">Próximamente</div>
-      <h1>Pitchmi es tu mapa del ahora.</h1>
-      <p class="hero-subtitle">
-        Descubre planes, lugares y momentos en tiempo real cerca de ti. Explora el mapa, crea tus propios pitches y guarda tu colección de planes favoritos.
-      </p>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        color: var(--text-main);
+        background: radial-gradient(circle at top left, #dbeafe, #f9fafb 60%);
+      }
 
-      <div class="cta-row">
-        <button class="cta-primary" disabled>
-          Coming soon para iOS y Android
-        </button>
-      </div>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
 
-      <p class="mini-copy">
-        Diseñada para descubrir sitios especiales, eventos espontáneos y rincones locales que no salen en las guías.
-      </p>
+      .page {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 32px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+
+      .logo-word {
+        font-family: "Times New Roman", "Georgia", serif;
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+
+      .logo-tag {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--text-muted);
+      }
+
+      .chip-beta {
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        color: var(--text-muted);
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(8px);
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        gap: 56px;
+      }
+
+      /* HERO */
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+        gap: 32px;
+        align-items: center;
+      }
+
+      .hero-text h1 {
+        font-family: "Times New Roman", "Georgia", serif;
+        font-size: clamp(32px, 4vw, 42px);
+        line-height: 1.1;
+        margin: 12px 0 16px;
+      }
+
+      .hero-text p {
+        margin: 0 0 18px;
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--text-muted);
+      }
+
+      .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+
+      .btn-primary {
+        border-radius: 999px;
+        padding: 10px 18px;
+        border: none;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--brand), var(--accent));
+        color: #ffffff;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+      }
+
+      .btn-secondary {
+        border-radius: 999px;
+        padding: 10px 16px;
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        font-size: 14px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.6);
+        color: var(--text-main);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+      }
+
+      .hero-footnote {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 8px;
+      }
+
+      .hero-card {
+        background: radial-gradient(circle at top, #e0f2fe, #e5e7eb);
+        border-radius: var(--radius-lg);
+        padding: 16px 16px 18px;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .hero-card-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--brand);
+      }
+
+      .hero-card-pill {
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        background: rgba(15, 23, 42, 0.8);
+        color: #e5e7eb;
+      }
+
+      .hero-map {
+        background: rgba(15, 23, 42, 0.86);
+        border-radius: var(--radius-md);
+        padding: 12px;
+        position: relative;
+        min-height: 190px;
+      }
+
+      .hero-marker {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        background: radial-gradient(circle at 30% 30%, #ffffff, #fb7185);
+        box-shadow: 0 0 0 10px rgba(248, 113, 113, 0.28);
+        top: 26%;
+        left: 58%;
+      }
+
+      .hero-marker-secondary {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        border-radius: 999px;
+        background: radial-gradient(circle at 30% 30%, #ffffff, #22c55e);
+        box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.27);
+        bottom: 22%;
+        right: 18%;
+      }
+
+      .hero-map-grid {
+        position: absolute;
+        inset: 12px;
+        opacity: 0.24;
+        background-image: linear-gradient(
+            to right,
+            rgba(148, 163, 184, 0.5) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(148, 163, 184, 0.5) 1px,
+            transparent 1px
+          );
+        background-size: 26px 26px;
+        border-radius: var(--radius-md);
+      }
+
+      .hero-caption {
+        margin-top: 10px;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      /* FEATURES */
+
+      .section {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: var(--radius-lg);
+        padding: 24px 20px;
+        box-shadow: 0 14px 40px rgba(15, 23, 42, 0.1);
+        border: 1px solid rgba(148, 163, 184, 0.3);
+      }
+
+      .section-title {
+        font-size: 18px;
+        margin: 0 0 16px;
+        font-weight: 600;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .feature {
+        padding: 14px 14px 16px;
+        border-radius: 16px;
+        background: linear-gradient(
+          135deg,
+          rgba(248, 250, 252, 0.95),
+          rgba(226, 232, 240, 0.95)
+        );
+      }
+
+      .feature-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+        font-size: 14px;
+        background: rgba(15, 23, 42, 0.9);
+        color: #e5e7eb;
+      }
+
+      .feature h3 {
+        margin: 0 0 4px;
+        font-size: 15px;
+      }
+
+      .feature p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      /* HOW IT WORKS */
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 8px;
+      }
+
+      .step {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .step-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--brand);
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      /* BETA SECTION */
+
+      .beta {
+        text-align: center;
+      }
+
+      .beta p {
+        margin: 8px 0 14px;
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      .beta-email {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: 14px;
+        background: var(--bg-card);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+      }
+
+      .beta-email span {
+        color: var(--brand);
+      }
+
+      footer {
+        margin-top: 32px;
+        font-size: 11px;
+        color: var(--text-muted);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      footer a {
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* RESPONSIVE */
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .hero-card {
+          order: -1;
+        }
+
+        .features,
+        .steps {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .page {
+          padding: 20px 14px 40px;
+        }
+
+        header {
+          margin-bottom: 20px;
+        }
+
+        .hero-text h1 {
+          font-size: 30px;
+        }
+
+        .section {
+          padding: 18px 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="logo">
+          <div class="logo-word">Pitchmi</div>
+          <div class="logo-tag">tu mapa del ahora</div>
+        </div>
+        <div class="chip-beta">Próximamente</div>
+      </header>
+
+      <main>
+        <!-- HERO -->
+        <section class="hero">
+          <div class="hero-text">
+            <p style="font-size: 13px; color: var(--text-muted); margin: 0 0 4px">
+              Próximamente
+            </p>
+            <h1>Pitchmi es tu mapa del ahora.</h1>
+            <p>
+              Descubre planes, lugares y momentos en tiempo real cerca de ti.
+              Explora el mapa, crea tus propios pitches y guarda tu colección de
+              planes favoritos.
+            </p>
+
+            <div class="hero-cta">
+              <a
+                class="btn-primary"
+                href="mailto:admin@pitchmi.app?subject=Quiero%20probar%20la%20beta%20de%20Pitchmi"
+              >
+                Apuntarme a la beta
+              </a>
+              <a class="btn-secondary" href="#como-funciona">
+                Cómo funciona
+              </a>
+            </div>
+
+            <p class="hero-footnote">
+              Pitchmi es un proyecto en desarrollo. Si quieres probar la beta o
+              colaborar, escríbenos a
+              <a href="mailto:admin@pitchmi.app">admin@pitchmi.app</a>.
+            </p>
+          </div>
+
+          <div class="hero-card" aria-hidden="true">
+            <div class="hero-card-header">
+              <div class="hero-card-title">Un mapa que se mueve contigo</div>
+              <div class="hero-card-pill">Planes en vivo cerca de ti</div>
+            </div>
+            <div class="hero-map">
+              <div class="hero-map-grid"></div>
+              <div class="hero-marker"></div>
+              <div class="hero-marker-secondary"></div>
+            </div>
+            <div class="hero-caption">
+              Pitches en tiempo real, lugares guardados y rutas que no salen en
+              las guías.
+            </div>
+          </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section class="section">
+          <h2 class="section-title">Diseñada para planes reales, no para feeds infinitos.</h2>
+          <div class="features">
+            <div class="feature">
+              <div class="feature-icon">📍</div>
+              <h3>Explora el mapa</h3>
+              <p>
+                Muévete por el mapa y descubre planes creados por personas reales
+                cerca de ti. Sin algoritmos raros, solo lo que pasa ahora.
+              </p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">✨</div>
+              <h3>Crea tus pitches</h3>
+              <p>
+                Sube fotos, añade título, descripción y categoría para compartir
+                lugares únicos, eventos espontáneos o rincones secretos.
+              </p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">💾</div>
+              <h3>Guarda tus favoritos</h3>
+              <p>
+                Crea tu colección de sitios y momentos para volver cuando
+                quieras: tu propio mapa de recuerdos y futuros planes.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section id="como-funciona" class="section" style="margin-top: 18px">
+          <h2 class="section-title">Cómo funcionará Pitchmi</h2>
+          <div class="steps">
+            <div class="step">
+              <div class="step-label">1 · Abre el mapa</div>
+              Ve lo que está pasando a tu alrededor en este momento: planes
+              tranquilos, rutas, fiesta o rincones para desconectar.
+            </div>
+            <div class="step">
+              <div class="step-label">2 · Crea un pitch</div>
+              Saca una foto, escribe dos líneas y márcalo en el mapa. Tu pitch
+              se convierte en un plan que otros pueden descubrir.
+            </div>
+            <div class="step">
+              <div class="step-label">3 · Guarda y vuelve</div>
+              Añade tus lugares a colecciones privadas o compartidas. Tu
+              portafolio de planes para hoy, mañana o cuando te apetezca.
+            </div>
+          </div>
+        </section>
+
+        <!-- BETA -->
+        <section class="section beta" style="margin-top: 18px">
+          <h2 class="section-title">¿Te gustaría ser de las primeras personas en usar Pitchmi?</h2>
+          <p>
+            Estamos preparando la primera beta para iOS y Android. Déjanos un
+            mensaje y te avisaremos cuando esté lista.
+          </p>
+          <div class="beta-email">
+            <span>admin@pitchmi.app</span>
+          </div>
+          <div style="margin-top: 10px">
+            <a
+              class="btn-secondary"
+              href="mailto:admin@pitchmi.app?subject=Me%20apunto%20a%20la%20beta%20de%20Pitchmi"
+            >
+              Escribir para unirme a la beta
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div>© <span id="year"></span> Pitchmi. Todos los derechos reservados.</div>
+        <div>
+          <a href="#">Aviso legal</a> ·
+          <a href="#">Política de privacidad</a>
+        </div>
+      </footer>
     </div>
 
-    <div class="hero-phone">
-      <div class="phone-frame">
-        <img src="mockup-map.png" alt="Vista previa de Pitchmi" />
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="features">
-      <div class="feature">
-        <h3>Explora el mapa</h3>
-        <p>Muévete por el mapa y descubre planes creados por personas reales cerca de ti.</p>
-      </div>
-      <div class="feature">
-        <h3>Crea tus pitches</h3>
-        <p>Sube fotos, añade título, descripción y categoría para compartir lugares únicos.</p>
-      </div>
-      <div class="feature">
-        <h3>Guarda tus favoritos</h3>
-        <p>Crea tu colección de sitios y momentos para volver cuando quieras.</p>
-      </div>
-    </section>
-
-    <section class="footer-note">
-      <p>
-        Pitchmi es un proyecto en desarrollo. Si quieres probar la beta o colaborar, escríbenos a
-        <a href="mailto:admin@pitchmi.app">admin@pitchmi.app</a>.
-      </p>
-    </section>
-  </main>
-</body>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
