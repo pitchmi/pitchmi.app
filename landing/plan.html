@@ -2,22 +2,12 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Plan en Pitchmi</title>
+    <title>Redirigiendo a Pitchmi...</title>
     <meta
-      id="metaDescription"
       name="description"
-      content="Descubre este plan en Pitchmi."
+      content="Abriendo el plan en Pitchmi."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <meta id="ogTitle" property="og:title" content="Plan en Pitchmi" />
-    <meta
-      id="ogDescription"
-      property="og:description"
-      content="Descubre este plan en Pitchmi."
-    />
-    <meta property="og:type" content="article" />
-    <meta id="ogUrl" property="og:url" content="https://pitchmi.app/plan.html" />
 
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap");
@@ -29,10 +19,8 @@
         --muted: #766f67;
         --line: rgba(44, 42, 40, 0.12);
         --sage: #8b9078;
-        --sage-soft: #e3e4d8;
         --shadow: 0 22px 60px rgba(44, 42, 40, 0.08);
         --radius-xl: 34px;
-        --radius-lg: 24px;
       }
 
       * {
@@ -57,17 +45,12 @@
       }
 
       .page {
-        width: min(1120px, 100%);
+        width: min(920px, 100%);
         margin: 0 auto;
-        padding: 34px clamp(18px, 5vw, 72px) 34px;
-      }
-
-      .header {
+        padding: 34px clamp(18px, 5vw, 72px);
+        min-height: 100vh;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: clamp(42px, 7vw, 78px);
+        flex-direction: column;
       }
 
       .logo {
@@ -76,6 +59,7 @@
         align-items: center;
         width: fit-content;
         gap: 8px;
+        margin-bottom: clamp(54px, 8vw, 92px);
       }
 
       .logo-mark {
@@ -96,6 +80,47 @@
         height: 24px;
         background: var(--text);
         opacity: 0.82;
+      }
+
+      .card {
+        margin: auto 0;
+        border-radius: var(--radius-xl);
+        background: rgba(255, 253, 248, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.76);
+        box-shadow: var(--shadow);
+        padding: clamp(28px, 5vw, 52px);
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 11px;
+        color: var(--sage);
+        font-weight: 800;
+        margin-bottom: 14px;
+      }
+
+      h1 {
+        font-family: "Libre Baskerville", Georgia, serif;
+        font-size: clamp(38px, 5vw, 62px);
+        line-height: 1.02;
+        font-weight: 400;
+        letter-spacing: -0.06em;
+        margin: 0 0 18px;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 15.5px;
+        line-height: 1.72;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
       }
 
       .button {
@@ -125,101 +150,6 @@
         color: var(--text);
       }
 
-      .back {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 650;
-        margin-bottom: 22px;
-      }
-
-      .detail {
-        display: grid;
-        grid-template-columns: 1.05fr 0.95fr;
-        gap: 0;
-        border-radius: var(--radius-xl);
-        overflow: hidden;
-        border: 1px solid var(--line);
-        background: rgba(255, 253, 248, 0.72);
-        box-shadow: var(--shadow);
-      }
-
-      .media {
-        min-height: 520px;
-        background:
-          radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.64), transparent 22%),
-          linear-gradient(135deg, #e8e1d7, #c9c2b2);
-        background-size: cover;
-        background-position: center;
-        display: grid;
-        place-items: center;
-        font-size: 68px;
-      }
-
-      .content {
-        padding: clamp(26px, 4vw, 48px);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .category {
-        display: inline-flex;
-        width: fit-content;
-        border-radius: 999px;
-        background: rgba(184, 176, 155, 0.18);
-        color: #6d645b;
-        padding: 7px 11px;
-        font-size: 10px;
-        letter-spacing: 0.12em;
-        font-weight: 800;
-        text-transform: uppercase;
-        margin-bottom: 16px;
-      }
-
-      h1 {
-        font-family: "Libre Baskerville", Georgia, serif;
-        font-size: clamp(38px, 5vw, 62px);
-        line-height: 1.02;
-        font-weight: 400;
-        letter-spacing: -0.06em;
-        margin: 0 0 18px;
-      }
-
-      .meta {
-        display: grid;
-        gap: 7px;
-        color: var(--muted);
-        font-size: 14px;
-        line-height: 1.5;
-        margin-bottom: 22px;
-      }
-
-      .description {
-        color: #45413c;
-        font-size: 15.5px;
-        line-height: 1.78;
-        margin: 0 0 28px;
-        white-space: pre-line;
-      }
-
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .loading,
-      .error {
-        border-radius: var(--radius-xl);
-        background: rgba(255, 253, 248, 0.7);
-        border: 1px solid var(--line);
-        padding: 30px;
-        color: var(--muted);
-      }
-
       footer {
         display: flex;
         align-items: center;
@@ -243,24 +173,9 @@
         flex-wrap: wrap;
       }
 
-      @media (max-width: 900px) {
-        .detail {
-          grid-template-columns: 1fr;
-        }
-
-        .media {
-          min-height: 340px;
-        }
-      }
-
       @media (max-width: 560px) {
         .page {
           padding: 22px 14px;
-        }
-
-        .header {
-          align-items: flex-start;
-          flex-direction: column;
         }
 
         h1 {
@@ -277,66 +192,29 @@
 
   <body>
     <div class="page">
-      <header class="header">
-        <a class="logo" href="/" aria-label="Pitchmi">
-          <span class="logo-mark">✦</span>
-          <span class="logo-line"></span>
-          <span class="logo-word">PITCHMI</span>
-          <span class="logo-line"></span>
-          <span class="logo-mark">▾</span>
-        </a>
+      <a class="logo" href="/" aria-label="Pitchmi">
+        <span class="logo-mark">✦</span>
+        <span class="logo-line"></span>
+        <span class="logo-word">PITCHMI</span>
+        <span class="logo-line"></span>
+        <span class="logo-mark">▾</span>
+      </a>
 
-        <a
-          class="button button-dark"
-          href="https://apps.apple.com/es/app/pitchmi/id6754662676"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Descargar la app
-        </a>
-      </header>
+      <main class="card">
+        <div class="eyebrow" id="statusLabel">Abriendo plan</div>
+        <h1 id="title">Buscando actividad...</h1>
+        <p id="message">
+          Estamos preparando la página del plan en Pitchmi.
+        </p>
 
-      <main>
-        <a class="back" href="/planes.html">← Ver todos los planes</a>
-
-        <div id="loading" class="loading">Cargando plan...</div>
-
-        <div id="error" class="error" style="display: none">
-          No se ha encontrado este plan.
+        <div class="actions">
+          <a id="manualLink" class="button button-dark" href="/planes.html">
+            Ver todos los planes
+          </a>
+          <a class="button button-light" href="/">
+            Volver al inicio
+          </a>
         </div>
-
-        <article id="detail" class="detail" style="display: none">
-          <div id="media" class="media">✦</div>
-
-          <div class="content">
-            <div id="category" class="category">Plan</div>
-            <h1 id="title">Plan en Pitchmi</h1>
-
-            <div class="meta">
-              <span id="location">📍 Ubicación disponible en Pitchmi</span>
-              <span id="date">🗓️ Publicado recientemente</span>
-            </div>
-
-            <p id="description" class="description">
-              Descubre este plan en Pitchmi.
-            </p>
-
-            <div class="actions">
-              <a
-                class="button button-dark"
-                href="https://apps.apple.com/es/app/pitchmi/id6754662676"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Descargar en App Store
-              </a>
-
-              <button id="shareButton" class="button button-light" type="button">
-                Compartir
-              </button>
-            </div>
-          </div>
-        </article>
       </main>
 
       <footer>
@@ -348,186 +226,52 @@
           <a href="/privacy.html">Privacidad</a>
           <a href="mailto:admin@pitchmi.app">Contacto</a>
         </div>
-
-        <div>© <span id="year"></span></div>
       </footer>
     </div>
 
     <script type="module">
       import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-      document.getElementById("year").textContent = new Date().getFullYear();
-
       const SUPABASE_URL = "https://rcfehpjksmpjtvhrufhm.supabase.co";
       const SUPABASE_ANON_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjZmVocGprc21wanR2aHJ1ZmhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwMDcsImV4cCI6MjA3NzU4MjgwN30.XYSRCeGBN74QYAtgcbSz2N47xvQWwVwC4rEZWCKcOpQ";
+        "sb_publishable_nlfsq0cZpnVsG9NLqs98SQ_pE24OyTp";
 
       const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      let currentPlan = null;
-
-      function getSymbolByCategory(category) {
-        const value = String(category || "").toLowerCase();
-
-        if (value.includes("mercad")) return "🌸";
-        if (value.includes("concierto")) return "🎶";
-        if (value.includes("feria")) return "🎪";
-        if (value.includes("ruta")) return "⛰️";
-        if (value.includes("gastronom")) return "🍽️";
-        if (value.includes("fiesta") || value.includes("noche")) return "✦";
-        if (value.includes("evento")) return "🎟️";
-        if (value.includes("deporte")) return "◌";
-        if (value.includes("lugar")) return "⌖";
-        if (value.includes("experiencia")) return "◇";
-
-        return "✦";
+      function stripAccents(value) {
+        return String(value || "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
       }
 
-      function getFirstImage(pitch) {
-        const possible =
-          pitch.image_url ||
-          pitch.image ||
-          pitch.cover_url ||
-          pitch.cover_image ||
-          pitch.cover_path ||
-          "";
-
-        if (possible) return possible;
-
-        if (Array.isArray(pitch.images) && pitch.images.length > 0) {
-          return pitch.images[0];
-        }
-
-        if (Array.isArray(pitch.image_urls) && pitch.image_urls.length > 0) {
-          return pitch.image_urls[0];
-        }
-
-        if (Array.isArray(pitch.image_paths) && pitch.image_paths.length > 0) {
-          return pitch.image_paths[0];
-        }
-
-        return "";
+      function slugify(value) {
+        return stripAccents(value)
+          .toLowerCase()
+          .replace(/&/g, " y ")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "")
+          .slice(0, 90);
       }
 
-      function formatDateLabel(pitch) {
-        const rawDate =
-          pitch.live_start_at ||
-          pitch.start_at ||
-          pitch.starts_at ||
-          pitch.date ||
-          pitch.created_at ||
-          null;
-
-        if (!rawDate) return "Publicado recientemente";
-
-        try {
-          const date = new Date(rawDate);
-
-          return new Intl.DateTimeFormat("es-ES", {
-            day: "numeric",
-            month: "short",
-            hour: "2-digit",
-            minute: "2-digit",
-          }).format(date);
-        } catch {
-          return "Publicado recientemente";
-        }
-      }
-
-      function getLocationLabel(pitch) {
-        return (
-          pitch.location ||
-          pitch.address ||
-          pitch.place_name ||
-          pitch.city ||
-          pitch.town ||
-          "Ubicación disponible en Pitchmi"
-        );
-      }
-
-      function getDescription(pitch) {
-        return (
-          pitch.description ||
-          pitch.short_description ||
-          pitch.body ||
-          "Plan disponible en Pitchmi."
-        );
-      }
-
-      function normalizePitch(pitch) {
-        const category = String(pitch.category || pitch.type || "Plan").trim();
+      function buildPlanUrl(pitch) {
         const title = pitch.title || pitch.name || "Plan en Pitchmi";
-        const description = getDescription(pitch);
+        const idSuffix = String(pitch.id || "").slice(0, 8);
+        const baseSlug = slugify(title) || `plan-${idSuffix}`;
+        const slug = idSuffix ? `${baseSlug}-${idSuffix}` : baseSlug;
 
-        return {
-          id: pitch.id,
-          title,
-          description,
-          category: category || "Plan",
-          location: getLocationLabel(pitch),
-          dateLabel: formatDateLabel(pitch),
-          symbol: getSymbolByCategory(category),
-          imageUrl: getFirstImage(pitch),
-          raw: pitch,
-        };
-      }
-
-      function updateMeta(plan) {
-        const title = `${plan.title} | Pitchmi`;
-        const description =
-          plan.description.length > 155
-            ? `${plan.description.slice(0, 152)}...`
-            : plan.description;
-
-        document.title = title;
-
-        document
-          .getElementById("metaDescription")
-          .setAttribute("content", description);
-
-        document.getElementById("ogTitle").setAttribute("content", title);
-        document
-          .getElementById("ogDescription")
-          .setAttribute("content", description);
-
-        document
-          .getElementById("ogUrl")
-          .setAttribute("content", window.location.href);
-      }
-
-      function renderPlan(plan) {
-        currentPlan = plan;
-
-        document.getElementById("category").textContent = plan.category;
-        document.getElementById("title").textContent = plan.title;
-        document.getElementById("location").textContent = `📍 ${plan.location}`;
-        document.getElementById("date").textContent = `🗓️ ${plan.dateLabel}`;
-        document.getElementById("description").textContent = plan.description;
-
-        const media = document.getElementById("media");
-
-        if (plan.imageUrl) {
-          media.textContent = "";
-          media.style.backgroundImage = `linear-gradient(135deg, rgba(36,35,33,0.10), rgba(36,35,33,0.10)), url('${plan.imageUrl}')`;
-        } else {
-          media.textContent = plan.symbol;
-          media.style.backgroundImage = "";
-        }
-
-        updateMeta(plan);
-
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("error").style.display = "none";
-        document.getElementById("detail").style.display = "grid";
+        return `/p/${slug}/`;
       }
 
       function showError() {
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("error").style.display = "block";
-        document.getElementById("detail").style.display = "none";
+        document.getElementById("statusLabel").textContent = "Plan no encontrado";
+        document.getElementById("title").textContent = "No hemos encontrado esta actividad";
+        document.getElementById("message").textContent =
+          "Puede que el enlace sea antiguo o que la actividad ya no esté disponible.";
+        document.getElementById("manualLink").textContent = "Buscar planes";
+        document.getElementById("manualLink").href = "/planes.html";
       }
 
-      async function loadPlan() {
+      async function redirectToSeoPage() {
         const params = new URLSearchParams(window.location.search);
         const id = params.get("id");
 
@@ -536,40 +280,37 @@
           return;
         }
 
-        const { data, error } = await supabase
-          .from("pitches")
-          .select("*")
-          .eq("id", id)
-          .single();
-
-        if (error || !data) {
-          console.warn("Error cargando plan:", error);
-          showError();
-          return;
-        }
-
-        renderPlan(normalizePitch(data));
-      }
-
-      document.getElementById("shareButton").addEventListener("click", async () => {
         try {
-          if (navigator.share && currentPlan) {
-            await navigator.share({
-              title: currentPlan.title,
-              text: currentPlan.description,
-              url: window.location.href,
-            });
+          const { data, error } = await supabase
+            .from("pitches")
+            .select("id,title,name")
+            .eq("id", id)
+            .single();
+
+          if (error || !data) {
+            console.warn("No se ha podido cargar el plan:", error);
+            showError();
             return;
           }
 
-          await navigator.clipboard.writeText(window.location.href);
-          alert("Enlace copiado");
-        } catch {
-          alert("No se ha podido compartir ahora.");
-        }
-      });
+          const url = buildPlanUrl(data);
 
-      loadPlan();
+          document.getElementById("statusLabel").textContent = "Redirigiendo";
+          document.getElementById("title").textContent =
+            data.title || data.name || "Plan en Pitchmi";
+          document.getElementById("message").textContent =
+            "Te llevamos a la página pública de esta actividad.";
+          document.getElementById("manualLink").textContent = "Abrir plan";
+          document.getElementById("manualLink").href = url;
+
+          window.location.replace(url);
+        } catch (error) {
+          console.warn("Error redirigiendo al plan:", error);
+          showError();
+        }
+      }
+
+      redirectToSeoPage();
     </script>
   </body>
 </html>
