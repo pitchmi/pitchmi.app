@@ -394,7 +394,10 @@ function createPlanHTML(plan, relatedPlans) {
     <title>${escapeHTML(plan.title)} | Pitchmi</title>
     <meta name="description" content="${escapeAttr(plan.metaDescription)}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="canonical" href="${escapeAttr(plan.url)}" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<meta name="theme-color" content="#f7f4ef" />
+<link rel="canonical" href="${escapeAttr(plan.url)}" />
 
     <meta property="og:title" content="${escapeAttr(`${plan.title} | Pitchmi`)}" />
     <meta property="og:description" content="${escapeAttr(plan.metaDescription)}" />
