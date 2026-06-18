@@ -7,7 +7,7 @@ const PAGES_DIR = path.join(LANDING_DIR, "p");
 
 const SUPABASE_URL = "https://rcfehpjksmpjtvhrufhm.supabase.co";
 const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjZmVocGprc21wanR2aHJ1ZmhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwMDcsImV4cCI6MjA3NzU4MjgwN30.XYSRCeGBN74QYAtgcbSz2N47xvQWwVwC4rEZWCKcOpQ";
+  "sb_publishable_nlfsq0cZpnVsG9NLqs98SQ_pE24OyTp";
 
 function escapeHTML(value) {
   return String(value ?? "")
