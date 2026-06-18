@@ -1015,17 +1015,17 @@
           flex-direction: column;
         }
       }
-      /* Mobile hero: keep editorial two-column layout */
+     /* Mobile hero: clean stacked layout */
 @media (max-width: 680px) {
   .page {
-    padding: 22px 14px 22px;
+    padding: 22px 18px 22px;
   }
 
   .header {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr;
     align-items: start;
-    margin-bottom: 42px;
+    margin-bottom: 52px;
   }
 
   .logo-word {
@@ -1034,56 +1034,131 @@
 
   .hero {
     display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 34px;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: start;
+    margin-bottom: 36px;
   }
 
   .hero-left {
     padding-left: 0;
-    min-width: 0;
   }
 
   .hero-symbol {
-    margin-bottom: 22px;
+    margin-bottom: 26px;
   }
 
   .hero-symbol .line {
-    height: 52px;
+    height: 56px;
   }
 
   h1 {
-    font-size: clamp(39px, 13vw, 54px);
-    line-height: 0.95;
-    letter-spacing: -0.07em;
-    margin-bottom: 14px;
+    font-size: clamp(54px, 17vw, 72px);
+    line-height: 0.94;
+    letter-spacing: -0.075em;
+    margin-bottom: 22px;
   }
 
   .hero-copy {
-    font-size: 13.5px;
-    line-height: 1.55;
-    margin-bottom: 18px;
+    width: 100%;
+    font-size: 17px;
+    line-height: 1.62;
+    margin-bottom: 24px;
   }
 
   .hero-actions {
-    gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
   }
 
   .hero-actions .button {
-    min-height: 38px;
-    padding: 0 13px;
-    font-size: 12px;
+    min-height: 48px;
+    padding: 0 22px;
+    font-size: 15px;
   }
 
   .hero-actions .text-link {
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .map {
-    min-height: 285px;
-    border-radius: 28px;
+    min-height: 360px;
+    border-radius: 32px;
+    margin-top: 6px;
   }
+
+  .map-pin .label {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .map-pin .circle {
+    width: 68px;
+    height: 68px;
+    border-width: 8px;
+    font-size: 23px;
+  }
+
+  .map-pin.large .circle {
+    width: 82px;
+    height: 82px;
+    font-size: 28px;
+  }
+
+  .pin-1 {
+    top: 86px;
+    left: 30%;
+  }
+
+  .pin-2 {
+    top: 96px;
+    right: 12%;
+  }
+
+  .pin-3 {
+    bottom: 78px;
+    left: 18%;
+  }
+
+  .pin-4 {
+    bottom: 78px;
+    right: 27%;
+  }
+
+  .pin-5 {
+    top: 52%;
+    right: 7%;
+  }
+}
+
+@media (max-width: 430px) {
+  .page {
+    padding: 22px 16px 22px;
+  }
+
+  h1 {
+    font-size: clamp(52px, 16.5vw, 66px);
+  }
+
+  .hero-copy {
+    font-size: 16px;
+  }
+
+  .hero-actions {
+    gap: 14px;
+  }
+
+  .hero-actions .button {
+    min-height: 46px;
+    padding: 0 20px;
+    font-size: 14px;
+  }
+
+  .map {
+    min-height: 330px;
+  }
+}
 
   .map-pin .label {
     font-size: 9.5px;
