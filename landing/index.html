@@ -54,8 +54,16 @@
           "Segoe UI", sans-serif;
         color: var(--text);
         background:
-          radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.92), transparent 30%),
-          radial-gradient(circle at 90% 8%, rgba(227, 228, 216, 0.72), transparent 26%),
+          radial-gradient(
+            circle at 10% 0%,
+            rgba(255, 255, 255, 0.92),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 90% 8%,
+            rgba(227, 228, 216, 0.72),
+            transparent 26%
+          ),
           linear-gradient(180deg, #fbf8f2 0%, var(--bg) 52%, #f1ece3 100%);
       }
 
@@ -75,8 +83,6 @@
         margin: 0 auto;
         padding: 34px clamp(18px, 5vw, 72px) 28px;
       }
-
-      /* HEADER */
 
       .header {
         display: grid;
@@ -213,8 +219,6 @@
         top: 5px;
       }
 
-      /* HERO */
-
       .hero {
         display: grid;
         grid-template-columns: 0.78fr 1.22fr;
@@ -293,7 +297,11 @@
         border: 1px solid rgba(255, 255, 255, 0.72);
         box-shadow: var(--shadow);
         background:
-          linear-gradient(90deg, rgba(247, 244, 239, 0.9), rgba(247, 244, 239, 0.22)),
+          linear-gradient(
+            90deg,
+            rgba(247, 244, 239, 0.9),
+            rgba(247, 244, 239, 0.22)
+          ),
           url("map-hero.jpg");
         background-size: cover;
         background-position: center;
@@ -304,8 +312,16 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(circle at 54% 47%, rgba(255, 255, 255, 0.24), transparent 20%),
-          linear-gradient(135deg, rgba(255, 253, 248, 0.16), rgba(255, 253, 248, 0.62));
+          radial-gradient(
+            circle at 54% 47%,
+            rgba(255, 255, 255, 0.24),
+            transparent 20%
+          ),
+          linear-gradient(
+            135deg,
+            rgba(255, 253, 248, 0.16),
+            rgba(255, 253, 248, 0.62)
+          );
       }
 
       .map-grid {
@@ -314,9 +330,24 @@
         opacity: 0.32;
         z-index: 1;
         background-image:
-          linear-gradient(23deg, transparent 0 47%, rgba(255,255,255,0.86) 48%, transparent 49%),
-          linear-gradient(117deg, transparent 0 56%, rgba(255,255,255,0.7) 57%, transparent 59%),
-          linear-gradient(154deg, transparent 0 37%, rgba(255,255,255,0.8) 38%, transparent 40%);
+          linear-gradient(
+            23deg,
+            transparent 0 47%,
+            rgba(255, 255, 255, 0.86) 48%,
+            transparent 49%
+          ),
+          linear-gradient(
+            117deg,
+            transparent 0 56%,
+            rgba(255, 255, 255, 0.7) 57%,
+            transparent 59%
+          ),
+          linear-gradient(
+            154deg,
+            transparent 0 37%,
+            rgba(255, 255, 255, 0.8) 38%,
+            transparent 40%
+          );
       }
 
       .map-diamond {
@@ -411,8 +442,6 @@
         right: 7%;
       }
 
-      /* SECTIONS */
-
       .section {
         margin-bottom: 26px;
       }
@@ -445,12 +474,25 @@
       }
 
       .cards {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        display: flex;
         gap: 18px;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        scroll-snap-type: x mandatory;
+      }
+
+      .cards::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .cards::-webkit-scrollbar-thumb {
+        background: rgba(44, 42, 40, 0.18);
+        border-radius: 999px;
       }
 
       .plan-card {
+        min-width: 245px;
+        width: 245px;
         background: rgba(255, 255, 255, 0.82);
         border: 1px solid var(--line);
         border-radius: var(--radius-lg);
@@ -459,6 +501,8 @@
         transition:
           transform 0.18s ease,
           box-shadow 0.18s ease;
+        cursor: pointer;
+        scroll-snap-align: start;
       }
 
       .plan-card:hover {
@@ -470,7 +514,11 @@
         position: relative;
         height: 138px;
         background:
-          radial-gradient(circle at 28% 24%, rgba(255,255,255,0.64), transparent 22%),
+          radial-gradient(
+            circle at 28% 24%,
+            rgba(255, 255, 255, 0.64),
+            transparent 22%
+          ),
           linear-gradient(135deg, #e8e1d7, #c9c2b2);
         overflow: hidden;
       }
@@ -535,21 +583,25 @@
         line-height: 1.62;
       }
 
-      .sync-strip {
+      .pitchmi-story {
         display: grid;
-        grid-template-columns: 0.95fr 1.55fr;
+        grid-template-columns: 0.9fr 1.35fr;
         gap: 18px;
         margin-top: 20px;
       }
 
-      .sync-box {
+      .story-box {
         border-radius: var(--radius-lg);
         border: 1px solid var(--line);
-        background: linear-gradient(135deg, rgba(227, 228, 216, 0.52), rgba(255, 253, 248, 0.72));
+        background: linear-gradient(
+          135deg,
+          rgba(227, 228, 216, 0.52),
+          rgba(255, 253, 248, 0.72)
+        );
         padding: 22px;
       }
 
-      .sync-box h3 {
+      .story-box h3 {
         font-family: "Libre Baskerville", Georgia, serif;
         font-weight: 400;
         letter-spacing: -0.035em;
@@ -558,7 +610,7 @@
         margin: 0 0 10px;
       }
 
-      .sync-box p {
+      .story-box p {
         color: var(--muted);
         line-height: 1.62;
         font-size: 13.5px;
@@ -621,12 +673,22 @@
       .detail-media {
         min-height: 280px;
         background:
-          linear-gradient(135deg, rgba(36, 35, 33, 0.32), rgba(36, 35, 33, 0.06)),
-          radial-gradient(circle at 40% 45%, rgba(255,255,255,0.34), transparent 20%),
+          linear-gradient(
+            135deg,
+            rgba(36, 35, 33, 0.32),
+            rgba(36, 35, 33, 0.06)
+          ),
+          radial-gradient(
+            circle at 40% 45%,
+            rgba(255, 255, 255, 0.34),
+            transparent 20%
+          ),
           linear-gradient(135deg, #a99573, #3d3934);
+        background-size: cover;
+        background-position: center;
         display: grid;
         place-items: center;
-        color: rgba(255,255,255,0.86);
+        color: rgba(255, 255, 255, 0.86);
         font-size: 58px;
       }
 
@@ -673,7 +735,7 @@
         text-transform: uppercase;
       }
 
-      .seo-note {
+      .project-note {
         border-radius: var(--radius-xl);
         background: rgba(255, 253, 248, 0.58);
         border: 1px solid var(--line);
@@ -684,7 +746,7 @@
         margin-bottom: 28px;
       }
 
-      .seo-note h2 {
+      .project-note h2 {
         font-family: "Libre Baskerville", Georgia, serif;
         font-size: clamp(30px, 3.2vw, 44px);
         line-height: 1.06;
@@ -693,7 +755,7 @@
         margin: 0;
       }
 
-      .seo-note p {
+      .project-note p {
         margin: 0;
         color: var(--muted);
         line-height: 1.75;
@@ -721,75 +783,6 @@
         align-items: center;
         gap: 20px;
         flex-wrap: wrap;
-      }
-
-      @media (max-width: 1080px) {
-        .header {
-          grid-template-columns: 180px 1fr;
-        }
-
-        .nav {
-          display: none;
-        }
-
-        .hero {
-          grid-template-columns: 1fr;
-        }
-
-        .cards {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .sync-strip,
-        .detail-preview,
-        .seo-note {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      @media (max-width: 680px) {
-        .page {
-          padding: 22px 14px 22px;
-        }
-
-        .header {
-          grid-template-columns: 1fr auto;
-          margin-bottom: 42px;
-        }
-
-        .logo-word {
-          font-size: 16px;
-        }
-
-        .button-light {
-          display: none;
-        }
-
-        h1 {
-          font-size: 52px;
-        }
-
-        .map {
-          min-height: 330px;
-        }
-
-        .cards,
-        .latest-list {
-          grid-template-columns: 1fr;
-        }
-
-        .section-header {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
-        footer {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-      }
-            .plan-card {
-        cursor: pointer;
       }
 
       .modal-backdrop {
@@ -821,7 +814,11 @@
       .modal-media {
         min-height: 250px;
         background:
-          radial-gradient(circle at 28% 24%, rgba(255,255,255,0.64), transparent 22%),
+          radial-gradient(
+            circle at 28% 24%,
+            rgba(255, 255, 255, 0.64),
+            transparent 22%
+          ),
           linear-gradient(135deg, #e8e1d7, #c9c2b2);
         background-size: cover;
         background-position: center;
@@ -896,6 +893,67 @@
         gap: 12px;
         align-items: center;
       }
+
+      @media (max-width: 1080px) {
+        .header {
+          grid-template-columns: 180px 1fr;
+        }
+
+        .nav {
+          display: none;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .pitchmi-story,
+        .detail-preview,
+        .project-note {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .page {
+          padding: 22px 14px 22px;
+        }
+
+        .header {
+          grid-template-columns: 1fr auto;
+          margin-bottom: 42px;
+        }
+
+        .logo-word {
+          font-size: 16px;
+        }
+
+        .button-light {
+          display: none;
+        }
+
+        h1 {
+          font-size: 52px;
+        }
+
+        .map {
+          min-height: 330px;
+        }
+
+        .latest-list {
+          grid-template-columns: 1fr;
+        }
+
+        .section-header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        footer {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
     </style>
   </head>
 
@@ -918,7 +976,14 @@
         </nav>
 
         <div class="header-actions">
-          <a class="button button-light" href="#app">Descargar la app</a>
+          <a
+            class="button button-light"
+            href="https://apps.apple.com/es/app/pitchmi/id6754662676"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Descargar la app
+          </a>
           <button class="menu" aria-label="Menú">
             <span></span>
           </button>
@@ -942,7 +1007,14 @@
             </p>
 
             <div class="hero-actions">
-              <a class="button button-dark" href="#app">Descargar la app</a>
+              <a
+                class="button button-dark"
+                href="https://apps.apple.com/es/app/pitchmi/id6754662676"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Descargar la app
+              </a>
               <a class="text-link" href="#planes">Ver planes <span>→</span></a>
             </div>
           </div>
@@ -984,7 +1056,7 @@
           <div class="section-card">
             <div class="section-header">
               <h2 class="section-title">✧ Planes destacados</h2>
-              <a class="text-link" href="#como-funciona">Cómo se publican <span>→</span></a>
+              <span class="text-link">Desliza para ver más <span>→</span></span>
             </div>
 
             <div id="featuredPlans" class="cards">
@@ -999,67 +1071,20 @@
                     <span>🗓️ Hoy · 10:00</span>
                   </div>
                   <p class="description">
-                    Un mercado al aire libre con flores, diseño local y ambiente de mañana.
-                  </p>
-                </div>
-              </article>
-
-              <article class="plan-card">
-                <div class="plan-media" data-symbol="🎶">
-                  <span class="category">Concierto</span>
-                </div>
-                <div class="plan-body">
-                  <h3 class="plan-title">Música al atardecer</h3>
-                  <div class="meta">
-                    <span>📍 Costa Brava</span>
-                    <span>🗓️ Hoy · 19:30</span>
-                  </div>
-                  <p class="description">
-                    Música en directo, vistas bonitas y plan sencillo para acabar el día.
-                  </p>
-                </div>
-              </article>
-
-              <article class="plan-card">
-                <div class="plan-media" data-symbol="🎪">
-                  <span class="category">Feria</span>
-                </div>
-                <div class="plan-body">
-                  <h3 class="plan-title">Feria artesanal</h3>
-                  <div class="meta">
-                    <span>📍 Girona</span>
-                    <span>🗓️ Este finde</span>
-                  </div>
-                  <p class="description">
-                    Puestos locales, piezas únicas y paseo tranquilo por el centro.
-                  </p>
-                </div>
-              </article>
-
-              <article class="plan-card">
-                <div class="plan-media" data-symbol="⛰️">
-                  <span class="category">Ruta</span>
-                </div>
-                <div class="plan-body">
-                  <h3 class="plan-title">Ruta con miradores</h3>
-                  <div class="meta">
-                    <span>📍 Cerca de ti</span>
-                    <span>🗓️ Mañana</span>
-                  </div>
-                  <p class="description">
-                    Una escapada breve para caminar, desconectar y descubrir un rincón nuevo.
+                    Un mercado al aire libre con flores, diseño local y ambiente
+                    de mañana.
                   </p>
                 </div>
               </article>
             </div>
 
-            <div id="como-funciona" class="sync-strip">
-              <div class="sync-box">
-                <h3>De la app a la web</h3>
+            <div id="como-funciona" class="pitchmi-story">
+              <div class="story-box">
+                <h3>Una app para encontrar planes reales</h3>
                 <p>
-                  Cuando una actividad se publica en Pitchmi, puede aparecer
-                  también en la web como contenido público. Así cada plan ayuda a
-                  que más personas descubran la app desde Google.
+                  Pitchmi reúne actividades, lugares, rutas y momentos que están
+                  pasando cerca de ti. No va de perderse en un feed infinito, va
+                  de abrir el mapa y encontrar algo que apetece hacer.
                 </p>
               </div>
 
@@ -1071,60 +1096,42 @@
                     <p class="latest-meta">Disponible pronto en Pitchmi</p>
                   </div>
                 </article>
-
-                <article class="latest-item">
-                  <div class="latest-symbol">✦</div>
-                  <div>
-                    <p class="latest-title">Evento local</p>
-                    <p class="latest-meta">Aparecerá en la web automáticamente</p>
-                  </div>
-                </article>
-
-                <article class="latest-item">
-                  <div class="latest-symbol">✦</div>
-                  <div>
-                    <p class="latest-title">Lugar recomendado</p>
-                    <p class="latest-meta">Creado desde la app</p>
-                  </div>
-                </article>
               </div>
             </div>
           </div>
         </section>
 
         <section id="eventos" class="detail-preview">
-          <div class="detail-media">✦</div>
+          <div id="highlightMedia" class="detail-media">✦</div>
 
           <div class="detail-content">
             <div class="eyebrow">Actividad destacada</div>
-            <h2>Planes que se encuentran justo cuando los necesitas</h2>
+            <h2 id="highlightTitle">Planes que se encuentran justo cuando los necesitas</h2>
 
             <div class="meta">
-              <span>📍 Cerca de ti</span>
-              <span>🗓️ Hoy, mañana o este finde</span>
+              <span id="highlightLocation">📍 Cerca de ti</span>
+              <span id="highlightDate">🗓️ Hoy, mañana o este finde</span>
             </div>
 
-            <p class="description">
+            <p id="highlightDescription" class="description">
               La web muestra una selección de actividades públicas de Pitchmi:
               eventos, rutas, lugares, ferias, conciertos y planes espontáneos.
             </p>
 
             <div class="tags">
-              <span class="tag">Eventos</span>
-              <span class="tag">Lugares</span>
-              <span class="tag">Rutas</span>
-              <span class="tag">Ferias</span>
+              <span id="highlightCategory" class="tag">Plan</span>
+              <span class="tag">Pitchmi</span>
             </div>
           </div>
         </section>
 
-        <section class="seo-note">
-          <h2>Más visibilidad para cada plan</h2>
+        <section class="project-note">
+          <h2>Explora lo que ocurre cerca de ti</h2>
           <p>
-            La idea es simple: cada actividad de calidad publicada en Pitchmi
-            puede tener presencia en la web. Así, cuando alguien busque un
-            concierto, una feria, una ruta o un mercado concreto, podrá llegar a
-            Pitchmi de forma orgánica.
+            Pitchmi nace para esos momentos en los que quieres hacer algo, pero
+            no sabes dónde mirar. Un mapa vivo para descubrir planes locales,
+            sitios con encanto, eventos espontáneos, rutas, ferias, conciertos y
+            recomendaciones creadas por personas reales.
           </p>
         </section>
 
@@ -1132,7 +1139,10 @@
           <div class="section-card">
             <div class="section-header">
               <h2 class="section-title">Descubre más en la app</h2>
-              <a class="button button-dark" href="mailto:admin@pitchmi.app?subject=Quiero%20probar%20Pitchmi">
+              <a
+                class="button button-dark"
+                href="mailto:admin@pitchmi.app?subject=Contacto%20Pitchmi"
+              >
                 Contactar
               </a>
             </div>
@@ -1159,7 +1169,8 @@
         <div>© <span id="year"></span></div>
       </footer>
     </div>
-        <div id="pitchModal" class="modal-backdrop" hidden>
+
+    <div id="pitchModal" class="modal-backdrop" hidden>
       <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div id="modalMedia" class="modal-media">
           <button id="modalClose" class="modal-close" type="button" aria-label="Cerrar">
@@ -1185,9 +1196,11 @@
             <a
               id="modalAppLink"
               class="button button-dark"
-              href="mailto:admin@pitchmi.app?subject=Quiero%20probar%20Pitchmi"
+              href="https://apps.apple.com/es/app/pitchmi/id6754662676"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Abrir en la app
+              Descargar en App Store
             </a>
 
             <button id="modalShare" class="button button-light" type="button">
@@ -1198,17 +1211,16 @@
       </article>
     </div>
 
-        <script type="module">
+    <script type="module">
       import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
       document.getElementById("year").textContent = new Date().getFullYear();
 
       const SUPABASE_URL = "https://rcfehpjksmpjtvhrufhm.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjZmVocGprc21wanR2aHJ1ZmhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwMDY4MDcsImV4cCI6MjA3NzU4MjgwN30.XYSRCeGBN74QYAtgcbSz2N47xvQWwVwC4rEZWCKcOpQ";
+      const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjZmVocGprc21wanR2aHJ1ZmhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwMDY4MDcsImV4cCI6MjA3NzU4MjgwN30.XYSRCeGBN74QYAtgcbSz2N47xvQWwVwC4rEZWCKcOpQ";
 
-      const hasSupabaseConfig =
-        SUPABASE_URL.startsWith("https://") &&
-        SUPABASE_ANON_KEY.startsWith("eyJ");
+      const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
       let currentPlans = [];
 
@@ -1216,6 +1228,8 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
         {
           title: "Mercado de flores",
           description:
+            "Un mercado al aire libre con flores, diseño local y ambiente de mañana.",
+          shortDescription:
             "Un mercado al aire libre con flores, diseño local y ambiente de mañana.",
           category: "Mercado",
           location: "Barcelona",
@@ -1227,6 +1241,8 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
           title: "Música al atardecer",
           description:
             "Música en directo, vistas bonitas y plan sencillo para acabar el día.",
+          shortDescription:
+            "Música en directo, vistas bonitas y plan sencillo para acabar el día.",
           category: "Concierto",
           location: "Costa Brava",
           dateLabel: "Hoy · 19:30",
@@ -1237,6 +1253,8 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
           title: "Feria artesanal",
           description:
             "Puestos locales, piezas únicas y paseo tranquilo por el centro.",
+          shortDescription:
+            "Puestos locales, piezas únicas y paseo tranquilo por el centro.",
           category: "Feria",
           location: "Girona",
           dateLabel: "Este finde",
@@ -1246,6 +1264,8 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
         {
           title: "Ruta con miradores",
           description:
+            "Una escapada breve para caminar, desconectar y descubrir un rincón nuevo.",
+          shortDescription:
             "Una escapada breve para caminar, desconectar y descubrir un rincón nuevo.",
           category: "Ruta",
           location: "Cerca de ti",
@@ -1376,7 +1396,7 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
         if (!container) return;
 
         container.innerHTML = plans
-          .slice(0, 4)
+          .slice(0, 8)
           .map((plan, index) => {
             const imageStyle = plan.imageUrl
               ? `style="background-image: linear-gradient(135deg, rgba(36,35,33,0.08), rgba(36,35,33,0.08)), url('${escapeHTML(plan.imageUrl)}')"`
@@ -1444,10 +1464,36 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
           .join("");
       }
 
+      function renderHighlight(plan) {
+        if (!plan) return;
+
+        const media = document.getElementById("highlightMedia");
+        const title = document.getElementById("highlightTitle");
+        const location = document.getElementById("highlightLocation");
+        const date = document.getElementById("highlightDate");
+        const description = document.getElementById("highlightDescription");
+        const category = document.getElementById("highlightCategory");
+
+        title.textContent = plan.title;
+        location.textContent = `📍 ${plan.location}`;
+        date.textContent = `🗓️ ${plan.dateLabel}`;
+        description.textContent = plan.description;
+        category.textContent = plan.category;
+
+        if (plan.imageUrl) {
+          media.textContent = "";
+          media.style.backgroundImage = `linear-gradient(135deg, rgba(36,35,33,0.12), rgba(36,35,33,0.12)), url('${plan.imageUrl}')`;
+        } else {
+          media.textContent = plan.symbol;
+          media.style.backgroundImage = "";
+        }
+      }
+
       function renderPlans(plans) {
         currentPlans = plans;
         renderFeaturedPlans(plans);
         renderLatestPlans(plans);
+        renderHighlight(plans[0]);
       }
 
       function openPitchModal(plan) {
@@ -1522,19 +1568,12 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
       });
 
       async function loadPitchesFromSupabase() {
-        if (!hasSupabaseConfig) {
-          renderPlans(fallbackPlans);
-          return;
-        }
-
         try {
-          const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
           const { data, error } = await supabase
             .from("pitches")
             .select("*")
             .order("created_at", { ascending: false })
-            .limit(8);
+            .limit(12);
 
           if (error) {
             console.warn("No se pudieron cargar pitches desde Supabase:", error);
