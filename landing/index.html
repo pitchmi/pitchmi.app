@@ -181,43 +181,7 @@
         backdrop-filter: blur(12px);
       }
 
-      .menu {
-        width: 42px;
-        height: 42px;
-        border-radius: 999px;
-        border: 1px solid var(--line);
-        background: rgba(255, 253, 248, 0.72);
-        display: grid;
-        place-items: center;
-      }
-
-      .menu span,
-      .menu span::before,
-      .menu span::after {
-        content: "";
-        display: block;
-        width: 15px;
-        height: 1px;
-        background: var(--text);
-      }
-
-      .menu span {
-        position: relative;
-      }
-
-      .menu span::before,
-      .menu span::after {
-        position: absolute;
-        left: 0;
-      }
-
-      .menu span::before {
-        top: -5px;
-      }
-
-      .menu span::after {
-        top: 5px;
-      }
+      
 
       .hero {
         display: grid;
@@ -1151,18 +1115,15 @@
         </nav>
 
         <div class="header-actions">
-          <a
-            class="button button-light"
-            href="https://apps.apple.com/es/app/pitchmi/id6754662676"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Descargar la app
-          </a>
-          <button class="menu" aria-label="Menú">
-            <span></span>
-          </button>
-        </div>
+  <a
+    class="button button-light"
+    href="https://apps.apple.com/es/app/pitchmi/id6754662676"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Descargar la app
+  </a>
+</div>
       </header>
 
       <main>
@@ -1872,7 +1833,7 @@
             .from("pitches")
             .select("*")
             .order("created_at", { ascending: false })
-            .limit(18);
+            .limit(80);
 
           if (error) {
             console.warn("No se pudieron cargar pitches desde Supabase:", error);
