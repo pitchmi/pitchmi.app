@@ -1,5 +1,5 @@
-const fs = require("node:fs/promises");
-const path = require("node:path");
+import fs from "node:fs/promises";
+import path from "node:path";
 
 const SITE_URL = "https://pitchmi.app";
 const LANDING_DIR = path.join(process.cwd(), "landing");
