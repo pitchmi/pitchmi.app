@@ -136,10 +136,98 @@ function getDateValue(pitch) {
     pitch.live_start_at ||
     pitch.start_at ||
     pitch.starts_at ||
+    pitch.event_start_at ||
+    pitch.event_date ||
     pitch.date ||
     pitch.created_at ||
     ""
   );
+}
+
+function getAvailabilityStartValue(pitch) {
+  return (
+    pitch.live_start_at ||
+    pitch.start_at ||
+    pitch.starts_at ||
+    pitch.event_start_at ||
+    pitch.event_date ||
+    pitch.date ||
+    ""
+  );
+}
+
+function getAvailabilityEndValue(pitch) {
+  return (
+    pitch.live_end_at ||
+    pitch.end_at ||
+    pitch.ends_at ||
+    pitch.event_end_at ||
+    pitch.end_date ||
+    pitch.date_to ||
+    pitch.date_end ||
+    ""
+  );
+}
+
+function parseDateTime(value) {
+  if (!value) return null;
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  return date;
+}
+
+function isPitchDeleted(pitch) {
+  const status = String(pitch.status || "").toLowerCase();
+  const visibility = String(pitch.visibility || "").toLowerCase();
+
+  return (
+    Boolean(pitch.deleted_at) ||
+    pitch.deleted === true ||
+    pitch.is_deleted === true ||
+    pitch.archived === true ||
+    pitch.is_archived === true ||
+    pitch.hidden === true ||
+    pitch.is_hidden === true ||
+    pitch.is_public === false ||
+    status === "deleted" ||
+    status === "archived" ||
+    status === "hidden" ||
+    status === "draft" ||
+    status === "inactive" ||
+    visibility === "private"
+  );
+}
+
+function isPitchAvailable(pitch) {
+  if (isPitchDeleted(pitch)) {
+    return false;
+  }
+
+  const now = new Date();
+
+  const endDate = parseDateTime(getAvailabilityEndValue(pitch));
+
+  if (endDate && endDate < now) {
+    return false;
+  }
+
+  const startDate = parseDateTime(getAvailabilityStartValue(pitch));
+
+  if (!endDate && startDate) {
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+
+    if (startDate < startOfToday) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function formatDateLabel(value) {
@@ -231,7 +319,13 @@ async function fetchPitches() {
     return [];
   }
 
-  return data.map(normalizePitch);
+  const available = data.filter(isPitchAvailable);
+
+  console.log(`Fetched ${data.length} pitches from Supabase.`);
+  console.log(`Available pitches after filters: ${available.length}.`);
+  console.log(`Filtered out ${data.length - available.length} unavailable pitches.`);
+
+  return available.map(normalizePitch);
 }
 
 function createStructuredData(plan) {
@@ -788,8 +882,6 @@ async function main() {
   console.log("Pitchmi SEO build started...");
 
   const plans = await fetchPitches();
-
-  console.log(`Fetched ${plans.length} pitches from Supabase.`);
 
   await removeGeneratedPages();
   await writePlanPages(plans);
