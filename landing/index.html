@@ -36,7 +36,6 @@
         --shadow-soft: 0 12px 28px rgba(44, 42, 40, 0.06);
         --radius-xl: 34px;
         --radius-lg: 24px;
-        --radius-md: 18px;
       }
 
       * {
@@ -73,8 +72,7 @@
       }
 
       button,
-      input,
-      textarea {
+      input {
         font: inherit;
       }
 
@@ -142,7 +140,6 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        gap: 12px;
       }
 
       .button {
@@ -180,8 +177,6 @@
         color: var(--text);
         backdrop-filter: blur(12px);
       }
-
-      
 
       .hero {
         display: grid;
@@ -251,6 +246,56 @@
         align-items: center;
         font-size: 13px;
         font-weight: 650;
+      }
+
+      .hero-search {
+        width: min(430px, 100%);
+        margin-top: 24px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: rgba(255, 253, 248, 0.66);
+        padding: 16px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .hero-search label {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--sage);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .hero-search-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .hero-search input {
+        width: 100%;
+        min-height: 42px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.72);
+        padding: 0 15px;
+        color: var(--text);
+        outline: none;
+      }
+
+      .hero-search button {
+        min-height: 42px;
+        border: 0;
+        border-radius: 999px;
+        background: #242321;
+        color: #fff;
+        padding: 0 16px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
       }
 
       .map {
@@ -434,22 +479,6 @@
         animation-delay: 1.6s;
       }
 
-      .pin-2 .circle::after {
-        animation-delay: 0.5s;
-      }
-
-      .pin-3 .circle::after {
-        animation-delay: 1s;
-      }
-
-      .pin-4 .circle::after {
-        animation-delay: 1.5s;
-      }
-
-      .pin-5 .circle::after {
-        animation-delay: 2s;
-      }
-
       @keyframes pulsePin {
         0% {
           transform: scale(0.9);
@@ -523,14 +552,6 @@
         display: grid;
         place-items: center;
         font-size: 17px;
-        transition:
-          transform 0.18s ease,
-          background 0.18s ease;
-      }
-
-      .card-control:hover {
-        transform: translateY(-1px);
-        background: rgba(255, 253, 248, 0.95);
       }
 
       .cards {
@@ -546,10 +567,6 @@
 
       .cards::-webkit-scrollbar {
         height: 6px;
-      }
-
-      .cards::-webkit-scrollbar-track {
-        background: transparent;
       }
 
       .cards::-webkit-scrollbar-thumb {
@@ -736,7 +753,6 @@
         border: 1px solid var(--line);
         background: rgba(255, 255, 255, 0.62);
         padding: 18px;
-        cursor: pointer;
         transition:
           transform 0.18s ease,
           background 0.18s ease;
@@ -919,115 +935,6 @@
         flex-wrap: wrap;
       }
 
-      .modal-backdrop {
-        position: fixed;
-        inset: 0;
-        z-index: 999;
-        background: rgba(36, 35, 33, 0.34);
-        backdrop-filter: blur(14px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 22px;
-      }
-
-      .modal-backdrop[hidden] {
-        display: none;
-      }
-
-      .modal {
-        width: min(760px, 100%);
-        max-height: min(86vh, 820px);
-        overflow: auto;
-        border-radius: 34px;
-        background: rgba(255, 253, 248, 0.96);
-        border: 1px solid rgba(255, 255, 255, 0.82);
-        box-shadow: 0 28px 90px rgba(36, 35, 33, 0.22);
-      }
-
-      .modal-media {
-        min-height: 250px;
-        background:
-          radial-gradient(
-            circle at 28% 24%,
-            rgba(255, 255, 255, 0.64),
-            transparent 22%
-          ),
-          linear-gradient(135deg, #e8e1d7, #c9c2b2);
-        background-size: cover;
-        background-position: center;
-        display: grid;
-        place-items: center;
-        font-size: 54px;
-        position: relative;
-      }
-
-      .modal-close {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        width: 42px;
-        height: 42px;
-        border-radius: 999px;
-        border: 1px solid rgba(44, 42, 40, 0.12);
-        background: rgba(255, 253, 248, 0.86);
-        color: var(--text);
-        cursor: pointer;
-        font-size: 22px;
-        line-height: 1;
-      }
-
-      .modal-body {
-        padding: clamp(24px, 4vw, 38px);
-      }
-
-      .modal-category {
-        display: inline-flex;
-        width: fit-content;
-        border-radius: 999px;
-        background: rgba(184, 176, 155, 0.18);
-        color: #6d645b;
-        padding: 7px 11px;
-        font-size: 10px;
-        letter-spacing: 0.12em;
-        font-weight: 800;
-        text-transform: uppercase;
-        margin-bottom: 14px;
-      }
-
-      .modal-title {
-        font-family: "Libre Baskerville", Georgia, serif;
-        font-weight: 400;
-        letter-spacing: -0.045em;
-        font-size: clamp(30px, 4vw, 46px);
-        line-height: 1.08;
-        margin: 0 0 16px;
-      }
-
-      .modal-meta {
-        display: grid;
-        gap: 7px;
-        color: var(--muted);
-        font-size: 14px;
-        line-height: 1.5;
-        margin-bottom: 20px;
-      }
-
-      .modal-description {
-        color: #45413c;
-        font-size: 15px;
-        line-height: 1.75;
-        margin: 0 0 24px;
-        white-space: pre-line;
-      }
-
-      .modal-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        align-items: center;
-      }
-
       @media (max-width: 1080px) {
         .header {
           grid-template-columns: 180px 1fr;
@@ -1078,6 +985,14 @@
           min-height: 330px;
         }
 
+        .hero-search-row {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-search button {
+          width: 100%;
+        }
+
         .section-header {
           align-items: flex-start;
           flex-direction: column;
@@ -1108,22 +1023,22 @@
         </a>
 
         <nav class="nav" aria-label="Navegación principal">
-          <a href="#planes">Planes</a>
+          <a href="/planes.html">Buscar planes</a>
+          <a href="#planes">Destacados</a>
           <a href="#categorias">Categorías</a>
-          <a href="#eventos">Destacado</a>
           <a href="#app">App</a>
         </nav>
 
         <div class="header-actions">
-  <a
-    class="button button-light"
-    href="https://apps.apple.com/es/app/pitchmi/id6754662676"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Descargar la app
-  </a>
-</div>
+          <a
+            class="button button-light"
+            href="https://apps.apple.com/es/app/pitchmi/id6754662676"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Descargar la app
+          </a>
+        </div>
       </header>
 
       <main>
@@ -1150,8 +1065,21 @@
               >
                 Descargar la app
               </a>
-              <a class="text-link" href="/planes.html">Ver todos los planes <span>→</span></a>
+              <a class="text-link" href="/planes.html">Ver planes <span>→</span></a>
             </div>
+
+            <form class="hero-search" action="/planes.html" method="get">
+              <label for="homeSearch">Buscar actividades</label>
+              <div class="hero-search-row">
+                <input
+                  id="homeSearch"
+                  name="q"
+                  type="search"
+                  placeholder="Buscar feria, concierto, mercado..."
+                />
+                <button type="submit">Buscar</button>
+              </div>
+            </form>
           </div>
 
           <div class="map" aria-label="Mapa visual de Pitchmi">
@@ -1202,23 +1130,7 @@
               </div>
             </div>
 
-            <div id="featuredPlans" class="cards">
-              <article class="plan-card">
-                <div class="plan-media" data-symbol="🌸">
-                  <span class="category">Mercado</span>
-                </div>
-                <div class="plan-body">
-                  <h3 class="plan-title">Mercado de flores</h3>
-                  <div class="meta">
-                    <span>📍 Barcelona</span>
-                    <span>🗓️ Hoy · 10:00</span>
-                  </div>
-                  <p class="description">
-                    Un mercado al aire libre con flores y diseño local.
-                  </p>
-                </div>
-              </article>
-            </div>
+            <div id="featuredPlans" class="cards"></div>
 
             <div id="como-funciona" class="pitchmi-story">
               <div class="story-box">
@@ -1229,15 +1141,7 @@
                 </p>
               </div>
 
-              <div id="latestPlans" class="latest-list">
-                <article class="latest-item">
-                  <div class="latest-symbol">✦</div>
-                  <div>
-                    <p class="latest-title">Nuevo plan</p>
-                    <p class="latest-meta">Disponible en Pitchmi</p>
-                  </div>
-                </article>
-              </div>
+              <div id="latestPlans" class="latest-list"></div>
             </div>
           </div>
         </section>
@@ -1246,19 +1150,10 @@
           <div class="section-card">
             <div class="section-header">
               <h2 class="section-title">✧ Explora por categorías</h2>
-              <span class="text-link">Planes, lugares y eventos</span>
+              <a class="text-link" href="/planes.html">Buscar todos los planes <span>→</span></a>
             </div>
 
-            <div id="categoryGrid" class="category-grid">
-              <article class="category-card">
-                <div class="category-top">
-                  <div class="category-symbol">✦</div>
-                  <div class="category-count">0 planes</div>
-                </div>
-                <h3>Planes</h3>
-                <p>Actividades disponibles en Pitchmi.</p>
-              </article>
-            </div>
+            <div id="categoryGrid" class="category-grid"></div>
           </div>
         </section>
 
@@ -1280,7 +1175,7 @@
 
             <div class="tags">
               <span id="highlightCategory" class="tag">Plan</span>
-              <span class="tag">Pitchmi</span>
+              <a id="highlightLink" class="tag" href="/planes.html">Ver plan</a>
             </div>
           </div>
         </section>
@@ -1319,7 +1214,7 @@
 
         <div class="footer-links">
           <a href="/planes.html">Planes</a>
-          <a href="#categorias">Categorías</a>
+          <a href="/planes.html">Buscar actividades</a>
           <a href="mailto:admin@pitchmi.app">Contacto</a>
           <a href="/privacy.html">Privacidad</a>
           <a href="/sitemap.xml">Sitemap</a>
@@ -1329,47 +1224,6 @@
       </footer>
     </div>
 
-    <div id="pitchModal" class="modal-backdrop" hidden>
-      <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div id="modalMedia" class="modal-media">
-          <button id="modalClose" class="modal-close" type="button" aria-label="Cerrar">
-            ×
-          </button>
-          <span id="modalSymbol">✦</span>
-        </div>
-
-        <div class="modal-body">
-          <div id="modalCategory" class="modal-category">Plan</div>
-          <h2 id="modalTitle" class="modal-title">Plan en Pitchmi</h2>
-
-          <div class="modal-meta">
-            <span id="modalLocation">📍 Ubicación disponible en Pitchmi</span>
-            <span id="modalDate">🗓️ Publicado recientemente</span>
-          </div>
-
-          <p id="modalDescription" class="modal-description">
-            Descubre este plan y más actividades cerca de ti en Pitchmi.
-          </p>
-
-          <div class="modal-actions">
-            <a
-              id="modalAppLink"
-              class="button button-dark"
-              href="https://apps.apple.com/es/app/pitchmi/id6754662676"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Descargar en App Store
-            </a>
-
-            <button id="modalShare" class="button button-light" type="button">
-              Compartir
-            </button>
-          </div>
-        </div>
-      </article>
-    </div>
-
     <script type="module">
       import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -1377,7 +1231,7 @@
 
       const SUPABASE_URL = "https://rcfehpjksmpjtvhrufhm.supabase.co";
       const SUPABASE_ANON_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjZmVocGprc21wanR2aHJ1ZmhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwMDY4MDcsImV4cCI6MjA3NzU4MjgwN30.XYSRCeGBN74QYAtgcbSz2N47xvQWwVwC4rEZWCKcOpQ";
+        "sb_publishable_nlfsq0cZpnVsG9NLqs98SQ_pE24OyTp";
 
       const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -1387,6 +1241,9 @@
 
       const fallbackPlans = [
         {
+          id: "fallback-1",
+          slug: "mercado-de-flores-fallback",
+          url: "/planes.html",
           title: "Mercado de flores",
           description: "Un mercado al aire libre con flores y diseño local.",
           shortDescription: "Un mercado al aire libre con flores y diseño local.",
@@ -1394,36 +1251,6 @@
           location: "Barcelona",
           dateLabel: "Hoy · 10:00",
           symbol: "🌸",
-          imageUrl: "",
-        },
-        {
-          title: "Música al atardecer",
-          description: "Música en directo y un plan sencillo para acabar el día.",
-          shortDescription: "Música en directo y un plan sencillo para acabar el día.",
-          category: "Concierto",
-          location: "Costa Brava",
-          dateLabel: "Hoy · 19:30",
-          symbol: "🎶",
-          imageUrl: "",
-        },
-        {
-          title: "Feria artesanal",
-          description: "Puestos locales y paseo tranquilo por el centro.",
-          shortDescription: "Puestos locales y paseo tranquilo por el centro.",
-          category: "Feria",
-          location: "Girona",
-          dateLabel: "Este finde",
-          symbol: "🎪",
-          imageUrl: "",
-        },
-        {
-          title: "Ruta con miradores",
-          description: "Una ruta breve para caminar y descubrir un sitio nuevo.",
-          shortDescription: "Una ruta breve para caminar y descubrir un sitio nuevo.",
-          category: "Ruta",
-          location: "Cerca de ti",
-          dateLabel: "Mañana",
-          symbol: "⛰️",
           imageUrl: "",
         },
       ];
@@ -1435,6 +1262,21 @@
           .replaceAll(">", "&gt;")
           .replaceAll('"', "&quot;")
           .replaceAll("'", "&#039;");
+      }
+
+      function stripAccents(value) {
+        return String(value || "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+      }
+
+      function slugify(value) {
+        return stripAccents(value)
+          .toLowerCase()
+          .replace(/&/g, " y ")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "")
+          .slice(0, 90);
       }
 
       function cleanCategory(category) {
@@ -1534,11 +1376,17 @@
       }
 
       function normalizePitch(pitch) {
+        const title = pitch.title || pitch.name || "Plan en Pitchmi";
         const category = cleanCategory(pitch.category || pitch.type || "Plan");
+        const idSuffix = String(pitch.id || "").slice(0, 8);
+        const baseSlug = slugify(title) || `plan-${idSuffix}`;
+        const slug = idSuffix ? `${baseSlug}-${idSuffix}` : baseSlug;
 
         return {
           id: pitch.id,
-          title: pitch.title || pitch.name || "Plan en Pitchmi",
+          slug,
+          url: `/p/${slug}/`,
+          title,
           description: getDescription(pitch, false),
           shortDescription: getDescription(pitch, true),
           category,
@@ -1556,7 +1404,7 @@
 
         container.innerHTML = plans
           .slice(0, 12)
-          .map((plan, index) => {
+          .map((plan) => {
             const imageStyle = plan.imageUrl
               ? `style="background-image: linear-gradient(135deg, rgba(36,35,33,0.08), rgba(36,35,33,0.08)), url('${escapeHTML(plan.imageUrl)}')"`
               : "";
@@ -1564,11 +1412,9 @@
             const imageClass = plan.imageUrl ? "plan-media has-image" : "plan-media";
 
             return `
-              <article
+              <a
                 class="plan-card"
-                role="button"
-                tabindex="0"
-                data-plan-index="${index}"
+                href="${escapeHTML(plan.url)}"
                 aria-label="Abrir ${escapeHTML(plan.title)}"
               >
                 <div class="${imageClass}" data-symbol="${escapeHTML(plan.symbol)}" ${imageStyle}>
@@ -1582,25 +1428,10 @@
                   </div>
                   <p class="description">${escapeHTML(plan.shortDescription)}</p>
                 </div>
-              </article>
+              </a>
             `;
           })
           .join("");
-
-        container.querySelectorAll(".plan-card").forEach((card) => {
-          card.addEventListener("click", () => {
-            const index = Number(card.dataset.planIndex);
-            openPitchModal(currentPlans[index]);
-          });
-
-          card.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              const index = Number(card.dataset.planIndex);
-              openPitchModal(currentPlans[index]);
-            }
-          });
-        });
       }
 
       function renderLatestPlans(plans) {
@@ -1611,13 +1442,13 @@
           .slice(0, 3)
           .map(
             (plan) => `
-              <article class="latest-item">
+              <a class="latest-item" href="${escapeHTML(plan.url)}">
                 <div class="latest-symbol">${escapeHTML(plan.symbol)}</div>
                 <div>
                   <p class="latest-title">${escapeHTML(plan.title)}</p>
                   <p class="latest-meta">${escapeHTML(plan.location)} · ${escapeHTML(plan.dateLabel)}</p>
                 </div>
-              </article>
+              </a>
             `
           )
           .join("");
@@ -1643,39 +1474,20 @@
             const symbol = getSymbolByCategory(category);
             const count = categoryPlans.length;
             const sample = categoryPlans[0]?.title || "Ver planes";
+            const href = `/planes.html?q=${encodeURIComponent(category)}`;
 
             return `
-              <article class="category-card" data-category="${escapeHTML(category)}" tabindex="0" role="button">
+              <a class="category-card" href="${href}">
                 <div class="category-top">
                   <div class="category-symbol">${escapeHTML(symbol)}</div>
                   <div class="category-count">${count} ${count === 1 ? "plan" : "planes"}</div>
                 </div>
                 <h3>${escapeHTML(category)}</h3>
                 <p>${escapeHTML(sample)}</p>
-              </article>
+              </a>
             `;
           })
           .join("");
-
-        container.querySelectorAll(".category-card").forEach((card) => {
-          card.addEventListener("click", () => {
-            const category = card.dataset.category;
-            const filtered = currentPlans.filter((plan) => plan.category === category);
-
-            if (filtered.length > 0) {
-              renderFeaturedPlans(filtered);
-              renderHighlight(filtered[0], true);
-              document.getElementById("planes")?.scrollIntoView({ behavior: "smooth" });
-            }
-          });
-
-          card.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              card.click();
-            }
-          });
-        });
       }
 
       function renderHighlight(plan, animate = false) {
@@ -1688,6 +1500,7 @@
         const date = document.getElementById("highlightDate");
         const description = document.getElementById("highlightDescription");
         const category = document.getElementById("highlightCategory");
+        const link = document.getElementById("highlightLink");
 
         const applyContent = () => {
           title.textContent = plan.title;
@@ -1695,6 +1508,7 @@
           date.textContent = `🗓️ ${plan.dateLabel}`;
           description.textContent = plan.description;
           category.textContent = plan.category;
+          link.href = plan.url;
 
           if (plan.imageUrl) {
             media.textContent = "";
@@ -1741,77 +1555,6 @@
         renderHighlight(plans[0]);
         startHighlightRotation();
       }
-
-      function openPitchModal(plan) {
-        if (!plan) return;
-
-        const modal = document.getElementById("pitchModal");
-        const modalMedia = document.getElementById("modalMedia");
-        const modalSymbol = document.getElementById("modalSymbol");
-        const modalCategory = document.getElementById("modalCategory");
-        const modalTitle = document.getElementById("modalTitle");
-        const modalLocation = document.getElementById("modalLocation");
-        const modalDate = document.getElementById("modalDate");
-        const modalDescription = document.getElementById("modalDescription");
-
-        modalCategory.textContent = plan.category;
-        modalTitle.textContent = plan.title;
-        modalLocation.textContent = `📍 ${plan.location}`;
-        modalDate.textContent = `🗓️ ${plan.dateLabel}`;
-        modalDescription.textContent = plan.description;
-        modalSymbol.textContent = plan.symbol;
-
-        if (plan.imageUrl) {
-          modalMedia.style.backgroundImage = `linear-gradient(135deg, rgba(36,35,33,0.10), rgba(36,35,33,0.10)), url('${plan.imageUrl}')`;
-          modalMedia.style.backgroundSize = "cover";
-          modalMedia.style.backgroundPosition = "center";
-          modalSymbol.style.display = "none";
-        } else {
-          modalMedia.style.backgroundImage = "";
-          modalSymbol.style.display = "block";
-        }
-
-        modal.hidden = false;
-        document.body.style.overflow = "hidden";
-      }
-
-      function closePitchModal() {
-        const modal = document.getElementById("pitchModal");
-        modal.hidden = true;
-        document.body.style.overflow = "";
-      }
-
-      document.getElementById("modalClose")?.addEventListener("click", closePitchModal);
-
-      document.getElementById("pitchModal")?.addEventListener("click", (event) => {
-        if (event.target.id === "pitchModal") {
-          closePitchModal();
-        }
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-          closePitchModal();
-        }
-      });
-
-      document.getElementById("modalShare")?.addEventListener("click", async () => {
-        try {
-          if (navigator.share) {
-            await navigator.share({
-              title: document.getElementById("modalTitle").textContent,
-              text: document.getElementById("modalDescription").textContent,
-              url: "https://pitchmi.app",
-            });
-            return;
-          }
-
-          await navigator.clipboard.writeText("https://pitchmi.app");
-          alert("Enlace copiado");
-        } catch {
-          alert("No se ha podido compartir ahora.");
-        }
-      });
 
       document.getElementById("plansPrev")?.addEventListener("click", () => {
         document.getElementById("featuredPlans")?.scrollBy({
