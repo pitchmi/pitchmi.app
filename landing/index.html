@@ -788,6 +788,114 @@
           flex-direction: column;
         }
       }
+            .plan-card {
+        cursor: pointer;
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background: rgba(36, 35, 33, 0.34);
+        backdrop-filter: blur(14px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 22px;
+      }
+
+      .modal-backdrop[hidden] {
+        display: none;
+      }
+
+      .modal {
+        width: min(760px, 100%);
+        max-height: min(86vh, 820px);
+        overflow: auto;
+        border-radius: 34px;
+        background: rgba(255, 253, 248, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.82);
+        box-shadow: 0 28px 90px rgba(36, 35, 33, 0.22);
+      }
+
+      .modal-media {
+        min-height: 250px;
+        background:
+          radial-gradient(circle at 28% 24%, rgba(255,255,255,0.64), transparent 22%),
+          linear-gradient(135deg, #e8e1d7, #c9c2b2);
+        background-size: cover;
+        background-position: center;
+        display: grid;
+        place-items: center;
+        font-size: 54px;
+        position: relative;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        border: 1px solid rgba(44, 42, 40, 0.12);
+        background: rgba(255, 253, 248, 0.86);
+        color: var(--text);
+        cursor: pointer;
+        font-size: 22px;
+        line-height: 1;
+      }
+
+      .modal-body {
+        padding: clamp(24px, 4vw, 38px);
+      }
+
+      .modal-category {
+        display: inline-flex;
+        width: fit-content;
+        border-radius: 999px;
+        background: rgba(184, 176, 155, 0.18);
+        color: #6d645b;
+        padding: 7px 11px;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      .modal-title {
+        font-family: "Libre Baskerville", Georgia, serif;
+        font-weight: 400;
+        letter-spacing: -0.045em;
+        font-size: clamp(30px, 4vw, 46px);
+        line-height: 1.08;
+        margin: 0 0 16px;
+      }
+
+      .modal-meta {
+        display: grid;
+        gap: 7px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      .modal-description {
+        color: #45413c;
+        font-size: 15px;
+        line-height: 1.75;
+        margin: 0 0 24px;
+        white-space: pre-line;
+      }
+
+      .modal-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
     </style>
   </head>
 
@@ -1051,8 +1159,46 @@
         <div>© <span id="year"></span></div>
       </footer>
     </div>
+        <div id="pitchModal" class="modal-backdrop" hidden>
+      <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div id="modalMedia" class="modal-media">
+          <button id="modalClose" class="modal-close" type="button" aria-label="Cerrar">
+            ×
+          </button>
+          <span id="modalSymbol">✦</span>
+        </div>
 
-    <script type="module">
+        <div class="modal-body">
+          <div id="modalCategory" class="modal-category">Plan</div>
+          <h2 id="modalTitle" class="modal-title">Plan en Pitchmi</h2>
+
+          <div class="modal-meta">
+            <span id="modalLocation">📍 Ubicación disponible en Pitchmi</span>
+            <span id="modalDate">🗓️ Publicado recientemente</span>
+          </div>
+
+          <p id="modalDescription" class="modal-description">
+            Descubre este plan y más actividades cerca de ti en Pitchmi.
+          </p>
+
+          <div class="modal-actions">
+            <a
+              id="modalAppLink"
+              class="button button-dark"
+              href="mailto:admin@pitchmi.app?subject=Quiero%20probar%20Pitchmi"
+            >
+              Abrir en la app
+            </a>
+
+            <button id="modalShare" class="button button-light" type="button">
+              Compartir
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+        <script type="module">
       import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
       document.getElementById("year").textContent = new Date().getFullYear();
@@ -1063,6 +1209,8 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
       const hasSupabaseConfig =
         SUPABASE_URL.startsWith("https://") &&
         SUPABASE_ANON_KEY.startsWith("eyJ");
+
+      let currentPlans = [];
 
       const fallbackPlans = [
         {
@@ -1194,12 +1342,14 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
         );
       }
 
-      function getDescription(pitch) {
+      function getDescription(pitch, short = false) {
         const text =
           pitch.description ||
           pitch.short_description ||
           pitch.body ||
           "Descubre este plan y más actividades cerca de ti en Pitchmi.";
+
+        if (!short) return text;
 
         return text.length > 118 ? `${text.slice(0, 115)}...` : text;
       }
@@ -1210,12 +1360,14 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
         return {
           id: pitch.id,
           title: pitch.title || pitch.name || "Plan en Pitchmi",
-          description: getDescription(pitch),
+          description: getDescription(pitch, false),
+          shortDescription: getDescription(pitch, true),
           category,
           location: getLocationLabel(pitch),
           dateLabel: formatDateLabel(pitch),
           symbol: getSymbolByCategory(category),
           imageUrl: getFirstImage(pitch),
+          raw: pitch,
         };
       }
 
@@ -1225,7 +1377,7 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
         container.innerHTML = plans
           .slice(0, 4)
-          .map((plan) => {
+          .map((plan, index) => {
             const imageStyle = plan.imageUrl
               ? `style="background-image: linear-gradient(135deg, rgba(36,35,33,0.08), rgba(36,35,33,0.08)), url('${escapeHTML(plan.imageUrl)}')"`
               : "";
@@ -1233,7 +1385,13 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
             const imageClass = plan.imageUrl ? "plan-media has-image" : "plan-media";
 
             return `
-              <article class="plan-card">
+              <article
+                class="plan-card"
+                role="button"
+                tabindex="0"
+                data-plan-index="${index}"
+                aria-label="Abrir ${escapeHTML(plan.title)}"
+              >
                 <div class="${imageClass}" data-symbol="${escapeHTML(plan.symbol)}" ${imageStyle}>
                   <span class="category">${escapeHTML(plan.category)}</span>
                 </div>
@@ -1243,12 +1401,27 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
                     <span>📍 ${escapeHTML(plan.location)}</span>
                     <span>🗓️ ${escapeHTML(plan.dateLabel)}</span>
                   </div>
-                  <p class="description">${escapeHTML(plan.description)}</p>
+                  <p class="description">${escapeHTML(plan.shortDescription)}</p>
                 </div>
               </article>
             `;
           })
           .join("");
+
+        container.querySelectorAll(".plan-card").forEach((card) => {
+          card.addEventListener("click", () => {
+            const index = Number(card.dataset.planIndex);
+            openPitchModal(currentPlans[index]);
+          });
+
+          card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              const index = Number(card.dataset.planIndex);
+              openPitchModal(currentPlans[index]);
+            }
+          });
+        });
       }
 
       function renderLatestPlans(plans) {
@@ -1272,9 +1445,81 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
       }
 
       function renderPlans(plans) {
+        currentPlans = plans;
         renderFeaturedPlans(plans);
         renderLatestPlans(plans);
       }
+
+      function openPitchModal(plan) {
+        if (!plan) return;
+
+        const modal = document.getElementById("pitchModal");
+        const modalMedia = document.getElementById("modalMedia");
+        const modalSymbol = document.getElementById("modalSymbol");
+        const modalCategory = document.getElementById("modalCategory");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalLocation = document.getElementById("modalLocation");
+        const modalDate = document.getElementById("modalDate");
+        const modalDescription = document.getElementById("modalDescription");
+
+        modalCategory.textContent = plan.category;
+        modalTitle.textContent = plan.title;
+        modalLocation.textContent = `📍 ${plan.location}`;
+        modalDate.textContent = `🗓️ ${plan.dateLabel}`;
+        modalDescription.textContent = plan.description;
+        modalSymbol.textContent = plan.symbol;
+
+        if (plan.imageUrl) {
+          modalMedia.style.backgroundImage = `linear-gradient(135deg, rgba(36,35,33,0.10), rgba(36,35,33,0.10)), url('${plan.imageUrl}')`;
+          modalMedia.style.backgroundSize = "cover";
+          modalMedia.style.backgroundPosition = "center";
+          modalSymbol.style.display = "none";
+        } else {
+          modalMedia.style.backgroundImage = "";
+          modalSymbol.style.display = "block";
+        }
+
+        modal.hidden = false;
+        document.body.style.overflow = "hidden";
+      }
+
+      function closePitchModal() {
+        const modal = document.getElementById("pitchModal");
+        modal.hidden = true;
+        document.body.style.overflow = "";
+      }
+
+      document.getElementById("modalClose")?.addEventListener("click", closePitchModal);
+
+      document.getElementById("pitchModal")?.addEventListener("click", (event) => {
+        if (event.target.id === "pitchModal") {
+          closePitchModal();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closePitchModal();
+        }
+      });
+
+      document.getElementById("modalShare")?.addEventListener("click", async () => {
+        try {
+          if (navigator.share) {
+            await navigator.share({
+              title: document.getElementById("modalTitle").textContent,
+              text: document.getElementById("modalDescription").textContent,
+              url: "https://pitchmi.app",
+            });
+            return;
+          }
+
+          await navigator.clipboard.writeText("https://pitchmi.app");
+          alert("Enlace copiado");
+        } catch {
+          alert("No se ha podido compartir ahora.");
+        }
+      });
 
       async function loadPitchesFromSupabase() {
         if (!hasSupabaseConfig) {
