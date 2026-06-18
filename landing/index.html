@@ -1015,6 +1015,154 @@
           flex-direction: column;
         }
       }
+      /* Mobile hero: keep editorial two-column layout */
+@media (max-width: 680px) {
+  .page {
+    padding: 22px 14px 22px;
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    margin-bottom: 42px;
+  }
+
+  .logo-word {
+    font-size: 16px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 34px;
+  }
+
+  .hero-left {
+    padding-left: 0;
+    min-width: 0;
+  }
+
+  .hero-symbol {
+    margin-bottom: 22px;
+  }
+
+  .hero-symbol .line {
+    height: 52px;
+  }
+
+  h1 {
+    font-size: clamp(39px, 13vw, 54px);
+    line-height: 0.95;
+    letter-spacing: -0.07em;
+    margin-bottom: 14px;
+  }
+
+  .hero-copy {
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .hero-actions .button {
+    min-height: 38px;
+    padding: 0 13px;
+    font-size: 12px;
+  }
+
+  .hero-actions .text-link {
+    font-size: 12px;
+  }
+
+  .map {
+    min-height: 285px;
+    border-radius: 28px;
+  }
+
+  .map-pin .label {
+    font-size: 9.5px;
+    padding: 4px 8px;
+  }
+
+  .map-pin .circle {
+    width: 58px;
+    height: 58px;
+    border-width: 7px;
+    font-size: 20px;
+  }
+
+  .map-pin.large .circle {
+    width: 68px;
+    height: 68px;
+    font-size: 23px;
+  }
+
+  .pin-1 {
+    top: 68px;
+    left: 24%;
+  }
+
+  .pin-2 {
+    top: 80px;
+    right: 9%;
+  }
+
+  .pin-3 {
+    bottom: 62px;
+    left: 10%;
+  }
+
+  .pin-4 {
+    bottom: 64px;
+    right: 25%;
+  }
+
+  .pin-5 {
+    top: 54%;
+    right: 2%;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 8px;
+  }
+
+  h1 {
+    font-size: clamp(36px, 12.5vw, 49px);
+  }
+
+  .hero-copy {
+    font-size: 12.8px;
+  }
+
+  .map {
+    min-height: 260px;
+  }
+
+  .map-pin .label {
+    font-size: 9px;
+  }
+
+  .map-pin .circle {
+    width: 52px;
+    height: 52px;
+    font-size: 18px;
+  }
+
+  .map-pin.large .circle {
+    width: 62px;
+    height: 62px;
+    font-size: 21px;
+  }
+}
     </style>
   </head>
 
