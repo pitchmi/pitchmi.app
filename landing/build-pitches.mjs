@@ -945,7 +945,15 @@ ${createStructuredData(plan)}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Descargar la app
+          iPhone
+        </a>
+        <a
+          class="button button-light"
+          href="https://play.google.com/store/apps/details?id=app.pitchmi"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Android
         </a>
       </header>
 

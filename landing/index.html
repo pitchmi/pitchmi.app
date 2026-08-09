@@ -36,6 +36,13 @@
 }
 </script>
 
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+    />
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
+    <script src="/iconos-categoria.js" defer></script>
+    <script src="/mapa.js" defer></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap");
 
@@ -198,6 +205,28 @@
         backdrop-filter: blur(12px);
       }
 
+      /* Los botones de tienda: el logotipo y el nombre, para que se vea a dónde
+         lleva antes de pulsar. */
+      .button-tienda {
+        gap: 9px;
+      }
+
+      .button-tienda svg {
+        flex: 0 0 auto;
+      }
+
+      .cta-tiendas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      /* En la cabecera, con dos botones, hace falta sitio. */
+      .header-actions {
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
       .hero {
         display: grid;
         grid-template-columns: 0.78fr 1.22fr;
@@ -353,6 +382,52 @@
             rgba(255, 255, 255, 0.16),
             rgba(255, 255, 255, 0.62)
           );
+      }
+
+      /* El mapa de verdad. Va debajo de los adornos hasta que carga; entonces
+         `.map--vivo` los esconde y se queda él solo. */
+      #mapaVivo {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+
+      .map--vivo::after,
+      .map--vivo .map-grid,
+      .map--vivo .map-diamond,
+      .map--vivo .map-pin {
+        display: none;
+      }
+
+      /* El pin: círculo de papel con el icono de la categoría, como en la app. */
+      .mapa-pin {
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid #F2DCE6;
+        color: var(--text);
+        box-shadow: 0 6px 16px rgba(110, 66, 102, 0.18);
+        cursor: pointer;
+        transition: transform 0.16s ease;
+      }
+
+      .mapa-pin:hover {
+        transform: scale(1.16);
+      }
+
+      /* Los controles de MapLibre, en la paleta de la casa. */
+      .maplibregl-ctrl-group {
+        border-radius: 14px !important;
+        border: 1px solid #F2DCE6 !important;
+        box-shadow: 0 8px 20px rgba(110, 66, 102, 0.12) !important;
+      }
+
+      .maplibregl-ctrl-attrib {
+        background: rgba(255, 255, 255, 0.82) !important;
+        font-family: "Baloo 2", sans-serif !important;
       }
 
       .map-grid {
@@ -635,14 +710,21 @@
         background-position: center;
       }
 
-      .plan-media:not(.has-image)::after {
-        content: attr(data-symbol);
+      /* El hueco sin foto: el icono de la categoría centrado, en la tinta de la
+         marca. Antes era un emoji metido por `content: attr(data-symbol)`, y un
+         SVG no cabe en un atributo. */
+      .plan-media-icono {
         position: absolute;
         inset: 0;
         display: grid;
         place-items: center;
-        font-size: 38px;
-        opacity: 0.88;
+        color: var(--text);
+        opacity: 0.5;
+      }
+
+      .plan-media-icono svg {
+        width: 46px;
+        height: 46px;
       }
 
       .category {
@@ -1281,12 +1363,24 @@
 
         <div class="header-actions">
           <a
-            class="button button-light"
+            class="button button-light button-tienda"
             href="https://apps.apple.com/es/app/pitchmi/id6754662676"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Descargar Pitchmi en la App Store"
           >
-            Descargar la app
+            <svg width="15" height="18" viewBox="0 0 17 20" fill="currentColor" aria-hidden="true"><path d="M14.1 10.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.5-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8C4.7 5.2 3 6.5 3 9c0 1.5.5 3 1.2 4.3.7 1.2 1.5 2.5 2.7 2.51.1 0 1.5-.7 2.8-.7 1.3 0 1.6.7 2.8.7 1.2 0 2-1.2 2.7-2.4.5-.9.8-1.7.8-1.8-.1 0-2.7-1-2.7-3zM11.6 3.6c.6-.7 1-1.7.9-2.6-.9 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.51 .1 2-.5 2.5-1.2z"/></svg>
+            <span>App Store</span>
+          </a>
+          <a
+            class="button button-light button-tienda"
+            href="https://play.google.com/store/apps/details?id=app.pitchmi"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Descargar Pitchmi en Google Play"
+          >
+            <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor" aria-hidden="true"><path d="M1.7.7a1.6 1.6 0 0 0-.5 1.2v18.2c0 .5.2.9.5 1.2l9.6-10.3L1.7.7z"/><path d="M15.2 7.6 12.5 6 3.1.5 12.4 10.4l2.8-2.8z"/><path d="M18.8 9.6 15.9 8l-3 3 3 3 2.9-1.6c.9-.5.9-2.3 0-2.8z"/><path d="M3.1 21.5l9.4-5.5 2.7-1.6-2.8-2.8L3.1 21.5z"/></svg>
+            <span>Google Play</span>
           </a>
         </div>
       </header>
@@ -1308,12 +1402,22 @@
 
             <div class="hero-actions">
               <a
-                class="button button-dark"
+                class="button button-dark button-tienda"
                 href="https://apps.apple.com/es/app/pitchmi/id6754662676"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Descargar la app
+                <svg width="15" height="18" viewBox="0 0 17 20" fill="currentColor" aria-hidden="true"><path d="M14.1 10.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.5-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8C4.7 5.2 3 6.5 3 9c0 1.5.5 3 1.2 4.3.7 1.2 1.5 2.5 2.7 2.51.1 0 1.5-.7 2.8-.7 1.3 0 1.6.7 2.8.7 1.2 0 2-1.2 2.7-2.4.5-.9.8-1.7.8-1.8-.1 0-2.7-1-2.7-3zM11.6 3.6c.6-.7 1-1.7.9-2.6-.9 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.51 .1 2-.5 2.5-1.2z"/></svg>
+                <span>iPhone</span>
+              </a>
+              <a
+                class="button button-light button-tienda"
+                href="https://play.google.com/store/apps/details?id=app.pitchmi"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor" aria-hidden="true"><path d="M1.7.7a1.6 1.6 0 0 0-.5 1.2v18.2c0 .5.2.9.5 1.2l9.6-10.3L1.7.7z"/><path d="M15.2 7.6 12.5 6 3.1.5 12.4 10.4l2.8-2.8z"/><path d="M18.8 9.6 15.9 8l-3 3 3 3 2.9-1.6c.9-.5.9-2.3 0-2.8z"/><path d="M3.1 21.5l9.4-5.5 2.7-1.6-2.8-2.8L3.1 21.5z"/></svg>
+                <span>Android</span>
               </a>
               <a class="text-link" href="/planes.html">Ver planes <span>→</span></a>
             </div>
@@ -1332,7 +1436,8 @@
             </form>
           </div>
 
-          <div class="map" aria-label="Mapa visual de Pitchmi">
+          <div class="map" aria-label="Mapa de los planes de Pitchmi">
+            <div id="mapaVivo"></div>
             <div class="map-grid"></div>
             <span class="map-diamond one"></span>
             <span class="map-diamond two"></span>
@@ -1340,27 +1445,27 @@
 
             <div class="map-pin large pin-1">
               <span class="label">Conciertos</span>
-              <span class="circle">🎙️</span>
+              <span class="circle" data-cat="concierto"></span>
             </div>
 
             <div class="map-pin pin-2">
               <span class="label">Mercados</span>
-              <span class="circle">🍅</span>
+              <span class="circle" data-cat="mercadillo"></span>
             </div>
 
             <div class="map-pin pin-3">
               <span class="label">Ferias</span>
-              <span class="circle">🎪</span>
+              <span class="circle" data-cat="ferias"></span>
             </div>
 
             <div class="map-pin pin-4">
               <span class="label">Gastro</span>
-              <span class="circle">🍽️</span>
+              <span class="circle" data-cat="gastronomía"></span>
             </div>
 
             <div class="map-pin pin-5">
               <span class="label">Rutas</span>
-              <span class="circle">⛰️</span>
+              <span class="circle" data-cat="rutas"></span>
             </div>
           </div>
         </section>
@@ -1415,8 +1520,8 @@
             <h2 id="highlightTitle">Planes cerca de ti</h2>
 
             <div class="meta">
-              <span id="highlightLocation">📍 Cerca de ti</span>
-              <span id="highlightDate">🗓️ Hoy o este finde</span>
+              <span id="highlightLocation">Cerca de ti</span>
+              <span id="highlightDate">Hoy o este finde</span>
             </div>
 
             <p id="highlightDescription" class="description">
@@ -1443,12 +1548,26 @@
           <div class="section-card">
             <div class="section-header">
               <h2 class="section-title">Descubre más en la app</h2>
-              <a
-                class="button button-dark"
-                href="mailto:admin@pitchmi.app?subject=Contacto%20Pitchmi"
+              <div class="cta-tiendas">
+                <a
+                class="button button-dark button-tienda"
+                href="https://apps.apple.com/es/app/pitchmi/id6754662676"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Contactar
+                <svg width="15" height="18" viewBox="0 0 17 20" fill="currentColor" aria-hidden="true"><path d="M14.1 10.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.5-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8C4.7 5.2 3 6.5 3 9c0 1.5.5 3 1.2 4.3.7 1.2 1.5 2.5 2.7 2.51.1 0 1.5-.7 2.8-.7 1.3 0 1.6.7 2.8.7 1.2 0 2-1.2 2.7-2.4.5-.9.8-1.7.8-1.8-.1 0-2.7-1-2.7-3zM11.6 3.6c.6-.7 1-1.7.9-2.6-.9 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.51 .1 2-.5 2.5-1.2z"/></svg>
+                <span>Descargar para iPhone</span>
               </a>
+                <a
+                class="button button-light button-tienda"
+                href="https://play.google.com/store/apps/details?id=app.pitchmi"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor" aria-hidden="true"><path d="M1.7.7a1.6 1.6 0 0 0-.5 1.2v18.2c0 .5.2.9.5 1.2l9.6-10.3L1.7.7z"/><path d="M15.2 7.6 12.5 6 3.1.5 12.4 10.4l2.8-2.8z"/><path d="M18.8 9.6 15.9 8l-3 3 3 3 2.9-1.6c.9-.5.9-2.3 0-2.8z"/><path d="M3.1 21.5l9.4-5.5 2.7-1.6-2.8-2.8L3.1 21.5z"/></svg>
+                <span>Descargar para Android</span>
+              </a>
+              </div>
             </div>
 
             <p class="description" style="max-width: 720px">
@@ -1517,7 +1636,7 @@
           category: "Mercado",
           location: "Barcelona",
           dateLabel: "Hoy · 10:00",
-          symbol: "🌸",
+          symbol: "",
           imageUrl: "",
         },
       ];
@@ -1551,22 +1670,21 @@
         return value.length > 0 ? value : "Plan";
       }
 
-      function getSymbolByCategory(category) {
-        const value = String(category || "").toLowerCase();
-
-        if (value.includes("mercad")) return "🌸";
-        if (value.includes("concierto")) return "🎶";
-        if (value.includes("feria")) return "🎪";
-        if (value.includes("ruta")) return "⛰️";
-        if (value.includes("gastronom")) return "🍽️";
-        if (value.includes("fiesta") || value.includes("noche")) return "◍";
-        if (value.includes("evento")) return "🎟️";
-        if (value.includes("deporte")) return "◌";
-        if (value.includes("lugar")) return "⌖";
-        if (value.includes("experiencia")) return "◇";
-
-        return "◌";
+      // Los iconos son los de la app (`iconos-categoria.js`), no emojis: cada
+      // sistema operativo dibuja los emojis a su manera y no se parecían a nada
+      // de Pitchmi.
+      // Los pines decorativos del hero también llevan el icono de la app.
+      function pintarPinesDelHero() {
+        document.querySelectorAll("[data-cat]").forEach((n) => {
+          n.innerHTML = window.iconoCategoria ? window.iconoCategoria(n.dataset.cat, 20) : "";
+        });
       }
+      document.addEventListener("DOMContentLoaded", pintarPinesDelHero);
+
+      function getSymbolByCategory(category) {
+        return window.iconoCategoria ? window.iconoCategoria(category, 26) : "";
+      }
+
 
       function getFirstImage(pitch) {
         const possible =
@@ -1684,14 +1802,14 @@
                 href="${escapeHTML(plan.url)}"
                 aria-label="Abrir ${escapeHTML(plan.title)}"
               >
-                <div class="${imageClass}" data-symbol="${escapeHTML(plan.symbol)}" ${imageStyle}>
+                <div class="${imageClass}" ${imageStyle}>${imageClass.includes("has-image") ? "" : `<span class="plan-media-icono">${plan.symbol}</span>`}
                   <span class="category">${escapeHTML(plan.category)}</span>
                 </div>
                 <div class="plan-body">
                   <h3 class="plan-title">${escapeHTML(plan.title)}</h3>
                   <div class="meta">
-                    <span>📍 ${escapeHTML(plan.location)}</span>
-                    <span>🗓️ ${escapeHTML(plan.dateLabel)}</span>
+                    <span>${escapeHTML(plan.location)}</span>
+                    <span>${escapeHTML(plan.dateLabel)}</span>
                   </div>
                   <p class="description">${escapeHTML(plan.shortDescription)}</p>
                 </div>
@@ -1710,7 +1828,7 @@
           .map(
             (plan) => `
               <a class="latest-item" href="${escapeHTML(plan.url)}">
-                <div class="latest-symbol">${escapeHTML(plan.symbol)}</div>
+                <div class="latest-symbol">${plan.symbol}</div>
                 <div>
                   <p class="latest-title">${escapeHTML(plan.title)}</p>
                   <p class="latest-meta">${escapeHTML(plan.location)} · ${escapeHTML(plan.dateLabel)}</p>
@@ -1771,8 +1889,8 @@
 
         const applyContent = () => {
           title.textContent = plan.title;
-          location.textContent = `📍 ${plan.location}`;
-          date.textContent = `🗓️ ${plan.dateLabel}`;
+          location.textContent = plan.location;
+          date.textContent = plan.dateLabel;
           description.textContent = plan.description;
           category.textContent = plan.category;
           link.href = plan.url;
@@ -1781,7 +1899,7 @@
             media.textContent = "";
             media.style.backgroundImage = `linear-gradient(135deg, rgba(36,35,33,0.12), rgba(36,35,33,0.12)), url('${plan.imageUrl}')`;
           } else {
-            media.textContent = plan.symbol;
+            media.innerHTML = plan.symbol;
             media.style.backgroundImage = "";
           }
         };
