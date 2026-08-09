@@ -8,11 +8,11 @@
   content="Pitchmi es una app móvil para descubrir planes, eventos, lugares, rutas, ferias y conciertos cerca de ti en un mapa."
 />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png?v=4" />
-<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png?v=4" />
-<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=4" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png?v=4" />
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png?v=4" />
+<link rel="icon" type="image/png" sizes="512x512" href="favicon.png?v=4" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=4" />
 <meta name="theme-color" content="#F8EFF4" />
 
     <meta property="og:title" content="Pitchmi – Tu mapa del ahora" />
@@ -41,8 +41,8 @@
       href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
     />
     <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
-    <script src="/iconos-categoria.js" defer></script>
-    <script src="/mapa.js" defer></script>
+    <script src="iconos-categoria.js" defer></script>
+    <script src="mapa.js" defer></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap");
 
@@ -1355,7 +1355,7 @@
         </a>
 
         <nav class="nav" aria-label="Navegación principal">
-          <a href="/planes.html">Buscar planes</a>
+          <a href="planes.html">Buscar planes</a>
           <a href="#planes">Destacados</a>
           <a href="#categorias">Categorías</a>
           <a href="#app">App</a>
@@ -1419,7 +1419,7 @@
                 <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor" aria-hidden="true"><path d="M1.7.7a1.6 1.6 0 0 0-.5 1.2v18.2c0 .5.2.9.5 1.2l9.6-10.3L1.7.7z"/><path d="M15.2 7.6 12.5 6 3.1.5 12.4 10.4l2.8-2.8z"/><path d="M18.8 9.6 15.9 8l-3 3 3 3 2.9-1.6c.9-.5.9-2.3 0-2.8z"/><path d="M3.1 21.5l9.4-5.5 2.7-1.6-2.8-2.8L3.1 21.5z"/></svg>
                 <span>Android</span>
               </a>
-              <a class="text-link" href="/planes.html">Ver planes <span>→</span></a>
+              <a class="text-link" href="planes.html">Ver planes <span>→</span></a>
             </div>
 
             <form class="hero-search" action="/planes.html" method="get">
@@ -1505,7 +1505,7 @@
           <div class="section-card">
             <div class="section-header">
               <h2 class="section-title">Explora por categorías</h2>
-              <a class="text-link" href="/planes.html">Buscar todos los planes <span>→</span></a>
+              <a class="text-link" href="planes.html">Buscar todos los planes <span>→</span></a>
             </div>
 
             <div id="categoryGrid" class="category-grid"></div>
@@ -1530,7 +1530,7 @@
 
             <div class="tags">
               <span id="highlightCategory" class="tag">Plan</span>
-              <a id="highlightLink" class="tag" href="/planes.html">Ver plan</a>
+              <a id="highlightLink" class="tag" href="planes.html">Ver plan</a>
             </div>
           </div>
         </section>
@@ -1582,8 +1582,8 @@
         <div class="footer-logo">PITCHMI</div>
 
         <div class="footer-links">
-  <a href="/planes.html">Planes</a>
-  <a href="/planes.html">Buscar actividades</a>
+  <a href="planes.html">Planes</a>
+  <a href="planes.html">Buscar actividades</a>
 
   <a
     href="https://www.tiktok.com/@pitchmi.app"
@@ -1602,8 +1602,8 @@
   </a>
 
   <a href="mailto:admin@pitchmi.app">Contacto</a>
-  <a href="/privacy.html">Privacidad</a>
-  <a href="/sitemap.xml">Sitemap</a>
+  <a href="privacy.html">Privacidad</a>
+  <a href="sitemap.xml">Sitemap</a>
 </div>
 
         <div>© <span id="year"></span></div>
@@ -1864,7 +1864,7 @@
             return `
               <a class="category-card" href="${href}">
                 <div class="category-top">
-                  <div class="category-symbol">${escapeHTML(symbol)}</div>
+                  <div class="category-symbol">${symbol}</div>
                   <div class="category-count">${count} ${count === 1 ? "plan" : "planes"}</div>
                 </div>
                 <h3>${escapeHTML(category)}</h3>
