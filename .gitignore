@@ -36,3 +36,8 @@ npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 node_modules
+
+# Las páginas de los planes las genera `landing/build-pitches.mjs` en cada
+# despliegue de Netlify, así que no se commitean: si se guardaran, el repo
+# tendría copias viejas de planes que ya han cambiado o desaparecido.
+landing/p/

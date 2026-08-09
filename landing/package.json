@@ -1,0 +1,11 @@
+{
+  "name": "pitchmi-landing",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "La web de Pitchmi. Sin dependencias a propósito: el generador de páginas sólo usa módulos de Node y fetch, así que el despliegue en Netlify no instala nada.",
+  "scripts": {
+    "build": "node build-pitches.mjs",
+    "ubicaciones": "node geocodificar.mjs"
+  }
+}

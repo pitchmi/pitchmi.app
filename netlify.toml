@@ -1,0 +1,31 @@
+# Netlify — configuración de la web de Pitchmi
+#
+# Por qué existe este fichero: en el panel estaba puesto «base directory /» con
+# «build command npm run build:landing». Eso hace que Netlify instale las 68
+# dependencias del proyecto de la app —expo, react-native, mapbox— antes de
+# ejecutar un script que **no necesita ninguna**: `landing/build-pitches.mjs` sólo
+# usa módulos de Node (`fs`, `path`, `url`) y `fetch`. Esa instalación es la parte
+# frágil y lenta del despliegue, y mientras falla las páginas de los planes no se
+# generan.
+#
+# Con `base = "landing"`, Netlify entra en esa carpeta, instala lo que diga
+# `landing/package.json` (nada) y ejecuta el build en segundos.
+#
+# Un fichero `netlify.toml` MANDA sobre lo que haya en el panel, así que estos tres
+# valores son ahora los de verdad.
+
+[build]
+  base = "landing"
+  command = "npm run build"
+  # Relativo a `base`, así que es la propia carpeta `landing/`.
+  publish = "."
+
+[build.environment]
+  # `fetch` sin banderas y `Object.fromEntries` piden Node moderno; el panel ya
+  # estaba en 22.x y aquí queda escrito para que no dependa del panel.
+  NODE_VERSION = "22"
+
+# Nada de reglas de redirección: aquí había una para que `/p/*` devolviera 404
+# cuando un plan desaparece, y sobra por dos motivos. Netlify **ya** responde 404
+# en una ruta que no existe en un sitio estático, y la regla apuntaba a un
+# `404.html` que no existe en la carpeta.

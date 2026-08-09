@@ -1,8 +1,30 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const SITE_URL = "https://pitchmi.app";
-const LANDING_DIR = path.join(process.cwd(), "landing");
+
+// La carpeta se saca de DÓNDE ESTÁ ESTE FICHERO, no del directorio desde el que
+// se lanza. Con `process.cwd()` el build escribía en `landing/landing/` si se
+// ejecutaba desde dentro de `landing/`, y en Netlify el directorio base puede ser
+// cualquiera de los dos.
+const LANDING_DIR = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * El nombre del sitio de cada plan, resuelto una vez con `geocodificar.mjs` y
+ * commiteado. En la base de datos `place_name` está vacío en todos los planes, así
+ * que sin esto las 94 páginas decían «Ubicación disponible en Pitchmi» — y una
+ * página que nunca dice «Balat» no puede salir cuando alguien busca «restaurante
+ * en Balat», que es justo para lo que existen estas páginas.
+ */
+let UBICACIONES = {};
+try {
+  UBICACIONES = JSON.parse(
+    await fs.readFile(path.join(LANDING_DIR, "ubicaciones.json"), "utf8")
+  );
+} catch {
+  console.warn("Sin ubicaciones.json: las páginas saldrán sin ciudad. Ejecuta: node landing/geocodificar.mjs");
+}
 const PAGES_DIR = path.join(LANDING_DIR, "p");
 
 const SUPABASE_URL = "https://rcfehpjksmpjtvhrufhm.supabase.co";
@@ -86,6 +108,21 @@ function resolveImageUrl(value) {
   return `${SUPABASE_URL}/storage/v1/object/public/pitches/${image}`;
 }
 
+/**
+ * Pide la foto redimensionada a Supabase en vez de la original.
+ *
+ * Es la misma transformación que se usa en la app (`lib/imagenes.ts`), donde bajó
+ * una pantalla de portfolio de 121 MB a 1,3. `resize=contain` NO es opcional: con
+ * sólo `width`, el servidor deja el alto igual y deforma la foto.
+ */
+function fotoWeb(url, ancho = 1200) {
+  const texto = String(url || "");
+  if (!texto.includes("/storage/v1/object/public/")) return texto;
+  const base = texto.replace("/storage/v1/object/public/", "/storage/v1/render/image/public/");
+  const union = base.includes("?") ? "&" : "?";
+  return `${base}${union}width=${ancho}&height=${ancho * 3}&resize=contain&quality=78`;
+}
+
 function getFirstImage(pitch) {
   const direct =
     pitch.image_url ||
@@ -119,9 +156,15 @@ function getLocation(pitch) {
       pitch.address ||
       pitch.place_name ||
       pitch.city ||
-      pitch.town,
+      pitch.town ||
+      UBICACIONES[pitch.id],
     "Ubicación disponible en Pitchmi"
   );
+}
+
+/** ¿Sabemos de verdad dónde está, o es el texto de relleno? */
+function tieneUbicacion(plan) {
+  return Boolean(plan.location) && plan.location !== "Ubicación disponible en Pitchmi";
 }
 
 function getDescription(pitch) {
@@ -328,36 +371,195 @@ async function fetchPitches() {
   return available.map(normalizePitch);
 }
 
+/** Los días de la semana como los nombra schema.org, en orden ISO (1 = lunes). */
+const DIAS_SCHEMA = [
+  "Monday", "Tuesday", "Wednesday", "Thursday",
+  "Friday", "Saturday", "Sunday",
+];
+
+/**
+ * Qué ES este plan, con la misma regla que usa la app:
+ * horario semanal → negocio · fechas concretas → evento · nada → lugar.
+ *
+ * Importa porque Google los trata distinto: sólo a un negocio con
+ * `openingHoursSpecification` le puede poner «Abierto ahora» al resultado.
+ */
+function tipoDePlan(pitch) {
+  if (pitch.horario_semanal && Object.keys(pitch.horario_semanal).length > 0) {
+    return "negocio";
+  }
+  const dias = parsePossibleArray(pitch.live_days);
+  if (dias.length > 0) return "evento";
+  return "lugar";
+}
+
+/**
+ * Sólo se concreta el tipo donde estamos seguros; el resto cae en
+ * `LocalBusiness`.
+ *
+ * Ojo con la tentación de mapear «arte» a `TouristAttraction`: la librería Minoa
+ * Pera tiene horario semanal y salía como atracción turística. Es válido en
+ * schema.org —una atracción también puede tener horario— pero el resultado con
+ * «Abierto ahora» lo da `LocalBusiness` y sus subtipos. Si tiene horario, es un
+ * negocio.
+ */
+const TIPO_SCHEMA_POR_CATEGORIA = {
+  "gastronomía": "Restaurant",
+  gastronomia: "Restaurant",
+  fiesta: "BarOrPub",
+  mercadillo: "Store",
+};
+
+/** Los tramos de `horario_semanal` en el formato que entiende Google. */
+function horarioSchema(horario) {
+  const salida = [];
+  for (let i = 0; i < 7; i++) {
+    const tramos = horario[String(i + 1)];
+    if (!Array.isArray(tramos) || tramos.length === 0) continue;   // vacío = cerrado
+    for (const tramo of tramos) {
+      if (!tramo?.start || !tramo?.end) continue;
+      salida.push({
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: `https://schema.org/${DIAS_SCHEMA[i]}`,
+        opens: tramo.start,
+        closes: tramo.end,
+      });
+    }
+  }
+  return salida;
+}
+
+/** El precio, con la misma lógica que la ficha de la app. */
+function precioSchema(pitch) {
+  if (pitch.is_free === true) {
+    return { offers: { "@type": "Offer", price: 0, priceCurrency: "EUR" } };
+  }
+  const min = Number(pitch.price_min_cents) || 0;
+  const max = Number(pitch.price_max_cents) || 0;
+  const uno = Number(pitch.price_cents) || 0;
+  const moneda = String(pitch.currency || "EUR").toUpperCase();
+
+  if (min > 0 && max > 0) {
+    return {
+      priceRange: `${min / 100}–${max / 100} ${moneda === "EUR" ? "€" : moneda}`,
+      offers: {
+        "@type": "AggregateOffer",
+        lowPrice: min / 100,
+        highPrice: max / 100,
+        priceCurrency: moneda,
+      },
+    };
+  }
+  if (uno > 0) {
+    return { offers: { "@type": "Offer", price: uno / 100, priceCurrency: moneda } };
+  }
+  return {};
+}
+
 function createStructuredData(plan) {
-  const eventData = {
+  const pitch = plan.raw || {};
+  const tipo = tipoDePlan(pitch);
+
+  const comun = {
     "@context": "https://schema.org",
-    "@type": "Event",
     name: plan.title,
-    description: plan.description,
+    description: plan.metaDescription,
     url: plan.url,
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    eventStatus: "https://schema.org/EventScheduled",
-    location: {
-      "@type": "Place",
-      name: plan.location,
-      address: plan.location,
-    },
-    organizer: {
-      "@type": "Organization",
-      name: "Pitchmi",
-      url: SITE_URL,
-    },
   };
 
-  if (plan.dateValue) {
-    eventData.startDate = plan.dateValue;
+  // Las fotos: todas las que haya, no sólo la portada.
+  const fotos = parsePossibleArray(pitch.image_urls)
+    .map((u) => fotoWeb(resolveImageUrl(u), 1200))
+    .filter(Boolean)
+    .slice(0, 6);
+  if (fotos.length > 0) comun.image = fotos;
+  else if (plan.imageUrl) comun.image = [plan.imageUrl];
+
+  // Las coordenadas son lo que permite el «cerca de mí». Ya están en la base.
+  const lat = Number(pitch.lat);
+  const lng = Number(pitch.lng);
+  const geo =
+    Number.isFinite(lat) && Number.isFinite(lng)
+      ? { "@type": "GeoCoordinates", latitude: lat, longitude: lng }
+      : null;
+
+  // La web del sitio, si la puso quien publica. Sólo http(s): lo escribe una
+  // persona y podría traer cualquier esquema.
+  const enlace = String(pitch.enlace || "");
+  const sameAs = /^https?:\/\//i.test(enlace) ? enlace : null;
+
+  if (tipo === "negocio") {
+    const categoria = String(plan.category || "").toLowerCase();
+    const datos = {
+      ...comun,
+      "@type": TIPO_SCHEMA_POR_CATEGORIA[categoria] || "LocalBusiness",
+      address: { "@type": "PostalAddress", addressLocality: plan.location },
+      openingHoursSpecification: horarioSchema(pitch.horario_semanal),
+      ...precioSchema(pitch),
+    };
+    if (geo) datos.geo = geo;
+    if (sameAs) datos.sameAs = sameAs;
+    return JSON.stringify(datos, null, 2).replaceAll("</script", "<\\/script");
   }
 
-  if (plan.imageUrl) {
-    eventData.image = [plan.imageUrl];
+  if (tipo === "evento") {
+    const datos = {
+      ...comun,
+      "@type": "Event",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      location: {
+        "@type": "Place",
+        name: plan.location,
+        address: { "@type": "PostalAddress", addressLocality: plan.location },
+        ...(geo ? { geo } : {}),
+      },
+      organizer: { "@type": "Organization", name: "Pitchmi", url: SITE_URL },
+      ...precioSchema(pitch),
+    };
+    if (plan.dateValue) datos.startDate = plan.dateValue;
+    if (sameAs) datos.sameAs = sameAs;
+    return JSON.stringify(datos, null, 2).replaceAll("</script", "<\\/script");
   }
 
-  return JSON.stringify(eventData, null, 2).replaceAll("</script", "<\\/script");
+  const datos = {
+    ...comun,
+    "@type": "TouristAttraction",
+    address: { "@type": "PostalAddress", addressLocality: plan.location },
+    ...precioSchema(pitch),
+  };
+  if (geo) datos.geo = geo;
+  if (sameAs) datos.sameAs = sameAs;
+  return JSON.stringify(datos, null, 2).replaceAll("</script", "<\\/script");
+}
+
+/**
+ * El título que sale en Google. Lleva el sitio, porque la gente busca «restaurante
+ * en balat», no el nombre exacto del local — sin la ciudad compites sólo por el
+ * nombre, que es la búsqueda que ya te encuentra.
+ *
+ * Se recorta a 60 caracteres antes de « | Pitchmi»: por encima de eso Google
+ * corta el título y la parte útil se pierde.
+ */
+function tituloSEO(plan) {
+  // Si el título ya nombra el sitio, no se repite: «La Fontcalda — Gandesa
+  // (Tarragona) — Bot» tiene dos guiones y dice el lugar dos veces. Se compara sin
+  // acentos y en minúsculas, palabra por palabra de la ubicación.
+  const enTitulo = (texto) =>
+    stripAccents(String(plan.title)).toLowerCase().includes(stripAccents(texto).toLowerCase());
+  // Tampoco se añade si el título ya trae un guión largo o un paréntesis: cuando
+  // Alida escribe «La Fontcalda — Gandesa (Tarragona)» el lugar ya está dicho, y
+  // añadir « — Bot» deja dos guiones y dos sitios distintos en la misma línea.
+  const yaLoDice = /[—(]/.test(String(plan.title));
+  const yaEsta =
+    tieneUbicacion(plan) &&
+    (yaLoDice ||
+      plan.location.split(/,\s*/).some((parte) => parte.length > 3 && enTitulo(parte)));
+
+  const sitio = tieneUbicacion(plan) && !yaEsta ? ` — ${plan.location}` : "";
+  let base = `${plan.title}${sitio}`;
+  if (base.length > 60) base = `${base.slice(0, 57).trim()}…`;
+  return `${base} | Pitchmi`;
 }
 
 function createPlanHTML(plan, relatedPlans) {
@@ -391,16 +593,16 @@ function createPlanHTML(plan, relatedPlans) {
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>${escapeHTML(plan.title)} | Pitchmi</title>
+    <title>${escapeHTML(tituloSEO(plan))}</title>
     <meta name="description" content="${escapeAttr(plan.metaDescription)}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=3" />
 <link rel="shortcut icon" type="image/png" href="/favicon.png?v=3" />
 <link rel="apple-touch-icon" href="/favicon.png?v=3" />
-<meta name="theme-color" content="#f7f4ef" />
+<meta name="theme-color" content="#F8EFF4" />
 <link rel="canonical" href="${escapeAttr(plan.url)}" />
 
-    <meta property="og:title" content="${escapeAttr(`${plan.title} | Pitchmi`)}" />
+    <meta property="og:title" content="${escapeAttr(tituloSEO(plan))}" />
     <meta property="og:description" content="${escapeAttr(plan.metaDescription)}" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="${escapeAttr(plan.url)}" />
