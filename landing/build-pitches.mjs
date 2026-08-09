@@ -11,8 +11,8 @@ const SITE_URL = "https://pitchmi.app";
 const LANDING_DIR = path.dirname(fileURLToPath(import.meta.url));
 
 /**
- * El nombre del sitio de cada plan, resuelto una vez con `geocodificar.mjs` y
- * commiteado. En la base de datos `place_name` está vacío en todos los planes, así
+ * El nombre del sitio de cada plan, resuelto una vez con 'geocodificar.mjs' y
+ * commiteado. En la base de datos 'place_name' está vacío en todos los planes, así
  * que sin esto las 94 páginas decían «Ubicación disponible en Pitchmi» — y una
  * página que nunca dice «Balat» no puede salir cuando alguien busca «restaurante
  * en Balat», que es justo para lo que existen estas páginas.
@@ -111,9 +111,9 @@ function resolveImageUrl(value) {
 /**
  * Pide la foto redimensionada a Supabase en vez de la original.
  *
- * Es la misma transformación que se usa en la app (`lib/imagenes.ts`), donde bajó
- * una pantalla de portfolio de 121 MB a 1,3. `resize=contain` NO es opcional: con
- * sólo `width`, el servidor deja el alto igual y deforma la foto.
+ * Es la misma transformación que se usa en la app ('lib/imagenes.ts'), donde bajó
+ * una pantalla de portfolio de 121 MB a 1,3. 'resize=contain' NO es opcional: con
+ * sólo 'width', el servidor deja el alto igual y deforma la foto.
  */
 function fotoWeb(url, ancho = 1200) {
   const texto = String(url || "");
@@ -382,7 +382,7 @@ const DIAS_SCHEMA = [
  * horario semanal → negocio · fechas concretas → evento · nada → lugar.
  *
  * Importa porque Google los trata distinto: sólo a un negocio con
- * `openingHoursSpecification` le puede poner «Abierto ahora» al resultado.
+ * 'openingHoursSpecification' le puede poner «Abierto ahora» al resultado.
  */
 function tipoDePlan(pitch) {
   if (pitch.horario_semanal && Object.keys(pitch.horario_semanal).length > 0) {
@@ -395,12 +395,12 @@ function tipoDePlan(pitch) {
 
 /**
  * Sólo se concreta el tipo donde estamos seguros; el resto cae en
- * `LocalBusiness`.
+ * 'LocalBusiness'.
  *
- * Ojo con la tentación de mapear «arte» a `TouristAttraction`: la librería Minoa
+ * Ojo con la tentación de mapear «arte» a 'TouristAttraction': la librería Minoa
  * Pera tiene horario semanal y salía como atracción turística. Es válido en
  * schema.org —una atracción también puede tener horario— pero el resultado con
- * «Abierto ahora» lo da `LocalBusiness` y sus subtipos. Si tiene horario, es un
+ * «Abierto ahora» lo da 'LocalBusiness' y sus subtipos. Si tiene horario, es un
  * negocio.
  */
 const TIPO_SCHEMA_POR_CATEGORIA = {
@@ -410,7 +410,7 @@ const TIPO_SCHEMA_POR_CATEGORIA = {
   mercadillo: "Store",
 };
 
-/** Los tramos de `horario_semanal` en el formato que entiende Google. */
+/** Los tramos de 'horario_semanal' en el formato que entiende Google. */
 function horarioSchema(horario) {
   const salida = [];
   for (let i = 0; i < 7; i++) {
@@ -642,12 +642,16 @@ ${createStructuredData(plan)}
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: "Baloo 2", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family: "Baloo 2", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
         color: var(--text);
-        background:
-          radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.92), transparent 30%),
-          radial-gradient(circle at 90% 8%, rgba(227, 228, 216, 0.72), transparent 26%),
-          linear-gradient(180deg, #F3ECFF 0%, var(--bg) 52%, #FFF1E4 100%);
+        /* El degradado del icono, de arriba a abajo de TODA la página: lavanda
+           arriba, melocotón abajo. Antes llevaba encima dos velos blancos que lo
+           lavaban — la lavanda no se veía y la página parecía blanca.
+           'fixed' para que sea un solo degradado continuo y no se repita por
+           secciones. */
+        background: linear-gradient(180deg, #F3ECFF 0%, #FBF3F6 46%, #FFF1E4 100%);
+        background-attachment: fixed;
       }
 
       a {
@@ -669,19 +673,23 @@ ${createStructuredData(plan)}
         margin-bottom: clamp(42px, 7vw, 78px);
       }
 
+      /* El logo es el del icono: PITCH sobre MI, en Playfair ROMANA.
+         Ojo con la tentación de ponerlo en itálica como los titulares: el icono
+         usa mayúsculas romanas, y si aquí va cursiva la web y el icono dejan de
+         parecer lo mismo. */
       .logo {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
         width: fit-content;
-        gap: 8px;
+        gap: 0;
+        line-height: 0.94;
       }
 
-      .logo-mark {
-        font-family: "Playfair Display", Georgia, serif;
-        font-style: italic;
-        font-size: 17px;
-        line-height: 1;
+      /* «MI» son dos letras: con el mismo tracking que «PITCH» quedaría suelta,
+         así que lleva un poco más, igual que en el icono. */
+      .logo-word-corta {
+        letter-spacing: 0.14em;
       }
 
       .logo-word {
@@ -690,13 +698,6 @@ ${createStructuredData(plan)}
         font-size: 19px;
         letter-spacing: 0.34em;
         font-weight: 400;
-      }
-
-      .logo-line {
-        width: 1px;
-        height: 24px;
-        background: var(--text);
-        opacity: 0.82;
       }
 
       .button {
@@ -880,8 +881,11 @@ ${createStructuredData(plan)}
       }
 
       .footer-logo {
+        display: inline-flex;
+        flex-direction: column;
+        line-height: 0.94;
         font-family: "Playfair Display", Georgia, serif;
-        font-style: italic;
+        font-style: normal;
         letter-spacing: 0.34em;
         color: var(--text);
       }
@@ -933,10 +937,8 @@ ${createStructuredData(plan)}
     <div class="page">
       <header class="header">
         <a class="logo" href="/" aria-label="Pitchmi">
-            <span class="logo-line"></span>
-          <span class="logo-word">PITCHMI</span>
-          <span class="logo-line"></span>
-          <span class="logo-mark">▾</span>
+          <span class="logo-word">PITCH</span>
+          <span class="logo-word logo-word-corta">MI</span>
         </a>
 
         <a
@@ -1006,7 +1008,7 @@ ${createStructuredData(plan)}
       </main>
 
       <footer>
-        <div class="footer-logo">PITCHMI</div>
+        <div class="footer-logo"><span>PITCH</span><span>MI</span></div>
 
         <div class="footer-links">
           <a href="/">Inicio</a>

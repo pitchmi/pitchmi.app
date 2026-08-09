@@ -77,18 +77,13 @@
         font-family: "Baloo 2", system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
         color: var(--text);
-        background:
-          radial-gradient(
-            circle at 10% 0%,
-            rgba(255, 255, 255, 0.92),
-            transparent 30%
-          ),
-          radial-gradient(
-            circle at 90% 8%,
-            rgba(255, 241, 228, 0.85),
-            transparent 26%
-          ),
-          linear-gradient(180deg, #F3ECFF 0%, #F7F2FA 46%, #FFF1E4 100%);
+        /* El degradado del icono, de arriba a abajo de TODA la página: lavanda
+           arriba, melocotón abajo. Antes llevaba encima dos velos blancos que lo
+           lavaban — la lavanda no se veía y la página parecía blanca.
+           `fixed` para que sea un solo degradado continuo y no se repita por
+           secciones. */
+        background: linear-gradient(180deg, #F3ECFF 0%, #FBF3F6 46%, #FFF1E4 100%);
+        background-attachment: fixed;
       }
 
       a {
@@ -109,25 +104,31 @@
 
       .header {
         display: grid;
-        grid-template-columns: 210px 1fr 210px;
+        /* La columna de la derecha se ajusta al contenido: con 210 px fijos los
+           dos botones de tienda no caben y se apilaban uno encima del otro. */
+        grid-template-columns: 150px 1fr auto;
         gap: 20px;
         align-items: center;
         margin-bottom: clamp(42px, 7vw, 86px);
       }
 
+      /* El logo es el del icono: PITCH sobre MI, en Playfair ROMANA.
+         Ojo con la tentación de ponerlo en itálica como los titulares: el icono
+         usa mayúsculas romanas, y si aquí va cursiva la web y el icono dejan de
+         parecer lo mismo. */
       .logo {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
         width: fit-content;
-        gap: 8px;
+        gap: 0;
+        line-height: 0.94;
       }
 
-      .logo-mark {
-        font-family: "Playfair Display", Georgia, serif;
-        font-style: italic;
-        font-size: 17px;
-        line-height: 1;
+      /* «MI» son dos letras: con el mismo tracking que «PITCH» quedaría suelta,
+         así que lleva un poco más, igual que en el icono. */
+      .logo-word-corta {
+        letter-spacing: 0.14em;
       }
 
       .logo-word {
@@ -136,13 +137,6 @@
         font-size: 19px;
         letter-spacing: 0.34em;
         font-weight: 400;
-      }
-
-      .logo-line {
-        width: 1px;
-        height: 24px;
-        background: var(--text);
-        opacity: 0.82;
       }
 
       .nav {
@@ -221,10 +215,11 @@
         gap: 10px;
       }
 
-      /* En la cabecera, con dos botones, hace falta sitio. */
+      /* Los dos botones de tienda, en fila. `nowrap` es lo que impide que se
+         apilen cuando la cabecera va justa. */
       .header-actions {
-        gap: 8px;
-        flex-wrap: wrap;
+        gap: 10px;
+        flex-wrap: nowrap;
       }
 
       .hero {
@@ -237,27 +232,6 @@
 
       .hero-left {
         padding-left: clamp(0px, 2vw, 30px);
-      }
-
-      .hero-symbol {
-        display: grid;
-        gap: 14px;
-        justify-items: center;
-        width: 34px;
-        margin-bottom: 34px;
-      }
-
-      .hero-symbol .line {
-        width: 1px;
-        height: 72px;
-        background: var(--text);
-        opacity: 0.85;
-      }
-
-      .hero-symbol .star {
-        font-family: "Playfair Display", Georgia, serif;
-        font-style: italic;
-        font-size: 18px;
       }
 
       h1 {
@@ -1033,8 +1007,11 @@
       }
 
       .footer-logo {
+        display: inline-flex;
+        flex-direction: column;
+        line-height: 0.94;
         font-family: "Playfair Display", Georgia, serif;
-        font-style: italic;
+        font-style: normal;
         letter-spacing: 0.34em;
         color: var(--text);
       }
@@ -1083,8 +1060,11 @@
         .logo-word {
           font-size: 16px;
         }
-
-        .button-light {
+        /* En móvil la cabecera se queda con el logo: los dos botones de tienda
+           están en el hero, a un dedo de distancia, y aquí irían apretados.
+           Antes esto era `.button-light { display: none }`, que escondía CUALQUIER
+           botón claro — y con él el de Google Play en toda la página. */
+        .header-actions {
           display: none;
         }
 
@@ -1146,14 +1126,6 @@
 
   .hero-left {
     padding-left: 0;
-  }
-
-  .hero-symbol {
-    margin-bottom: 26px;
-  }
-
-  .hero-symbol .line {
-    height: 56px;
   }
 
   h1 {
@@ -1349,9 +1321,8 @@
     <div class="page">
       <header class="header">
         <a class="logo" href="/" aria-label="Pitchmi">
-          <span class="logo-line"></span>
-          <span class="logo-word">PITCHMI</span>
-          <span class="logo-line"></span>
+          <span class="logo-word">PITCH</span>
+          <span class="logo-word logo-word-corta">MI</span>
         </a>
 
         <nav class="nav" aria-label="Navegación principal">
@@ -1388,10 +1359,6 @@
       <main>
         <section class="hero">
           <div class="hero-left">
-            <div class="hero-symbol" aria-hidden="true">
-              <span class="star">·</span>
-              <span class="line"></span>
-            </div>
 
             <h1>¿Qué hacer<br />hoy?</h1>
 
@@ -1579,7 +1546,7 @@
       </main>
 
       <footer>
-        <div class="footer-logo">PITCHMI</div>
+        <div class="footer-logo"><span>PITCH</span><span>MI</span></div>
 
         <div class="footer-links">
   <a href="planes.html">Planes</a>

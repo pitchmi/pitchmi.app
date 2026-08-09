@@ -42,10 +42,13 @@
         font-family: "Baloo 2", system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
         color: var(--text);
-        background:
-          radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.92), transparent 30%),
-          radial-gradient(circle at 90% 8%, rgba(227, 228, 216, 0.72), transparent 26%),
-          linear-gradient(180deg, #F3ECFF 0%, var(--bg) 52%, #FFF1E4 100%);
+        /* El degradado del icono, de arriba a abajo de TODA la página: lavanda
+           arriba, melocotón abajo. Antes llevaba encima dos velos blancos que lo
+           lavaban — la lavanda no se veía y la página parecía blanca.
+           `fixed` para que sea un solo degradado continuo y no se repita por
+           secciones. */
+        background: linear-gradient(180deg, #F3ECFF 0%, #FBF3F6 46%, #FFF1E4 100%);
+        background-attachment: fixed;
       }
 
       a {
@@ -72,19 +75,23 @@
         margin-bottom: clamp(42px, 7vw, 78px);
       }
 
+      /* El logo es el del icono: PITCH sobre MI, en Playfair ROMANA.
+         Ojo con la tentación de ponerlo en itálica como los titulares: el icono
+         usa mayúsculas romanas, y si aquí va cursiva la web y el icono dejan de
+         parecer lo mismo. */
       .logo {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
         width: fit-content;
-        gap: 8px;
+        gap: 0;
+        line-height: 0.94;
       }
 
-      .logo-mark {
-        font-family: "Playfair Display", Georgia, serif;
-        font-style: italic;
-        font-size: 17px;
-        line-height: 1;
+      /* «MI» son dos letras: con el mismo tracking que «PITCH» quedaría suelta,
+         así que lleva un poco más, igual que en el icono. */
+      .logo-word-corta {
+        letter-spacing: 0.14em;
       }
 
       .logo-word {
@@ -93,13 +100,6 @@
         font-size: 19px;
         letter-spacing: 0.34em;
         font-weight: 400;
-      }
-
-      .logo-line {
-        width: 1px;
-        height: 24px;
-        background: var(--text);
-        opacity: 0.82;
       }
 
       .button {
@@ -321,8 +321,11 @@
       }
 
       .footer-logo {
+        display: inline-flex;
+        flex-direction: column;
+        line-height: 0.94;
         font-family: "Playfair Display", Georgia, serif;
-        font-style: italic;
+        font-style: normal;
         letter-spacing: 0.34em;
         color: var(--text);
       }
@@ -380,10 +383,8 @@
     <div class="page">
       <header class="header">
         <a class="logo" href="/" aria-label="Pitchmi">
-            <span class="logo-line"></span>
-          <span class="logo-word">PITCHMI</span>
-          <span class="logo-line"></span>
-          <span class="logo-mark">▾</span>
+          <span class="logo-word">PITCH</span>
+          <span class="logo-word logo-word-corta">MI</span>
         </a>
 
         <a
@@ -440,7 +441,7 @@
       </main>
 
       <footer>
-        <div class="footer-logo">PITCHMI</div>
+        <div class="footer-logo"><span>PITCH</span><span>MI</span></div>
 
         <div class="footer-links">
           <a href="/">Inicio</a>
