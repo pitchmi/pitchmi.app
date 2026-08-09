@@ -603,9 +603,9 @@ function createPlanHTML(plan, relatedPlans) {
     <title>${escapeHTML(tituloSEO(plan))}</title>
     <meta name="description" content="${escapeAttr(plan.metaDescription)}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=3" />
-<link rel="shortcut icon" type="image/png" href="/favicon.png?v=3" />
-<link rel="apple-touch-icon" href="/favicon.png?v=3" />
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=6" />
+<link rel="shortcut icon" type="image/png" href="/favicon.png?v=6" />
+<link rel="apple-touch-icon" href="/favicon.png?v=6" />
 <meta name="theme-color" content="#F8EFF4" />
 <link rel="canonical" href="${escapeAttr(plan.url)}" />
 
