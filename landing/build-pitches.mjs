@@ -547,16 +547,23 @@ function tituloSEO(plan) {
   // acentos y en minúsculas, palabra por palabra de la ubicación.
   const enTitulo = (texto) =>
     stripAccents(String(plan.title)).toLowerCase().includes(stripAccents(texto).toLowerCase());
-  // Tampoco se añade si el título ya trae un guión largo o un paréntesis: cuando
+  // No se añade nada si el título ya trae un guión largo o un paréntesis: cuando
   // Alida escribe «La Fontcalda — Gandesa (Tarragona)» el lugar ya está dicho, y
   // añadir « — Bot» deja dos guiones y dos sitios distintos en la misma línea.
   const yaLoDice = /[—(]/.test(String(plan.title));
-  const yaEsta =
-    tieneUbicacion(plan) &&
-    (yaLoDice ||
-      plan.location.split(/,\s*/).some((parte) => parte.length > 3 && enTitulo(parte)));
 
-  const sitio = tieneUbicacion(plan) && !yaEsta ? ` — ${plan.location}` : "";
+  // Y del resto se añade SÓLO lo que el título no diga ya, parte por parte.
+  //
+  // La primera versión descartaba la ubicación entera si el título mencionaba
+  // cualquier trozo: «TurguT restaurant Balat» con ubicación «Balat, Estambul» se
+  // quedaba sin nada, y perdía «Estambul», que es la palabra por la que la gente
+  // busca de verdad. Ahora queda «TurguT restaurant Balat — Estambul».
+  const partes =
+    tieneUbicacion(plan) && !yaLoDice
+      ? plan.location.split(/,\s*/).filter((parte) => parte.length > 2 && !enTitulo(parte))
+      : [];
+
+  const sitio = partes.length > 0 ? ` — ${partes.join(", ")}` : "";
   let base = `${plan.title}${sitio}`;
   if (base.length > 60) base = `${base.slice(0, 57).trim()}…`;
   return `${base} | Pitchmi`;
