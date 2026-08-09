@@ -303,13 +303,13 @@ function getSymbolByCategory(category) {
   if (value.includes("feria")) return "🎪";
   if (value.includes("ruta")) return "⛰️";
   if (value.includes("gastronom")) return "🍽️";
-  if (value.includes("fiesta") || value.includes("noche")) return "✦";
+  if (value.includes("fiesta") || value.includes("noche")) return "◍";
   if (value.includes("evento")) return "🎟️";
   if (value.includes("deporte")) return "◌";
   if (value.includes("lugar")) return "⌖";
   if (value.includes("experiencia")) return "◇";
 
-  return "✦";
+  return "◌";
 }
 
 function normalizePitch(pitch) {
@@ -620,17 +620,17 @@ ${createStructuredData(plan)}
     </script>
 
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap");
 
       :root {
-        --bg: #f7f4ef;
-        --paper: #fffdf8;
-        --text: #242321;
-        --muted: #766f67;
+        --bg: #F7F2FA;
+        --paper: rgba(255, 255, 255, 0.92);
+        --text: #6E4266;
+        --muted: #8A5F80;
         --line: rgba(44, 42, 40, 0.12);
-        --sage: #8b9078;
-        --sage-soft: #e3e4d8;
-        --shadow: 0 22px 60px rgba(44, 42, 40, 0.08);
+        --sage: #8A5410;
+        --sage-soft: #FFF0DE;
+        --shadow: 0 22px 60px rgba(110, 66, 102, 0.10);
         --radius-xl: 34px;
         --radius-lg: 24px;
       }
@@ -642,12 +642,12 @@ ${createStructuredData(plan)}
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family: "Baloo 2", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         color: var(--text);
         background:
           radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.92), transparent 30%),
           radial-gradient(circle at 90% 8%, rgba(227, 228, 216, 0.72), transparent 26%),
-          linear-gradient(180deg, #fbf8f2 0%, var(--bg) 52%, #f1ece3 100%);
+          linear-gradient(180deg, #F3ECFF 0%, var(--bg) 52%, #FFF1E4 100%);
       }
 
       a {
@@ -678,13 +678,15 @@ ${createStructuredData(plan)}
       }
 
       .logo-mark {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-size: 17px;
         line-height: 1;
       }
 
       .logo-word {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-size: 19px;
         letter-spacing: 0.34em;
         font-weight: 400;
@@ -713,14 +715,14 @@ ${createStructuredData(plan)}
       }
 
       .button-dark {
-        background: #242321;
+        background: #6E4266;
         color: #fff;
-        border-color: #242321;
-        box-shadow: 0 14px 28px rgba(44, 42, 40, 0.17);
+        border-color: #6E4266;
+        box-shadow: 0 14px 28px rgba(110, 66, 102, 0.17);
       }
 
       .button-light {
-        background: rgba(255, 253, 248, 0.68);
+        background: rgba(255, 255, 255, 0.68);
         color: var(--text);
       }
 
@@ -741,7 +743,7 @@ ${createStructuredData(plan)}
         border-radius: var(--radius-xl);
         overflow: hidden;
         border: 1px solid var(--line);
-        background: rgba(255, 253, 248, 0.72);
+        background: rgba(255, 255, 255, 0.72);
         box-shadow: var(--shadow);
       }
 
@@ -770,7 +772,7 @@ ${createStructuredData(plan)}
         width: fit-content;
         border-radius: 999px;
         background: rgba(184, 176, 155, 0.18);
-        color: #6d645b;
+        color: #8A5F80;
         padding: 7px 11px;
         font-size: 10px;
         letter-spacing: 0.12em;
@@ -780,7 +782,8 @@ ${createStructuredData(plan)}
       }
 
       h1 {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-size: clamp(38px, 5vw, 62px);
         line-height: 1.02;
         font-weight: 400;
@@ -814,13 +817,14 @@ ${createStructuredData(plan)}
       .related {
         margin-top: 28px;
         border-radius: var(--radius-xl);
-        background: rgba(255, 253, 248, 0.62);
+        background: rgba(255, 255, 255, 0.62);
         border: 1px solid var(--line);
         padding: 24px;
       }
 
       .related h2 {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-weight: 400;
         letter-spacing: -0.045em;
         font-size: 30px;
@@ -876,7 +880,8 @@ ${createStructuredData(plan)}
       }
 
       .footer-logo {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         letter-spacing: 0.34em;
         color: var(--text);
       }
@@ -928,8 +933,7 @@ ${createStructuredData(plan)}
     <div class="page">
       <header class="header">
         <a class="logo" href="/" aria-label="Pitchmi">
-          <span class="logo-mark">✦</span>
-          <span class="logo-line"></span>
+            <span class="logo-line"></span>
           <span class="logo-word">PITCHMI</span>
           <span class="logo-line"></span>
           <span class="logo-mark">▾</span>

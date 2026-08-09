@@ -37,22 +37,21 @@
 </script>
 
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap");
 
       :root {
-        --bg: #f7f4ef;
-        --paper: #fffdf8;
-        --paper-soft: #fbf8f1;
-        --text: #242321;
-        --muted: #766f67;
-        --muted-2: #9a9288;
-        --line: rgba(44, 42, 40, 0.11);
-        --line-strong: rgba(44, 42, 40, 0.18);
-        --sage: #8b9078;
-        --sage-soft: #e3e4d8;
-        --taupe: #b8b09b;
-        --shadow: 0 22px 60px rgba(44, 42, 40, 0.08);
-        --shadow-soft: 0 12px 28px rgba(44, 42, 40, 0.06);
+        --bg: #F7F2FA;
+        --paper: rgba(255, 255, 255, 0.92);
+        --paper-soft: #FBF5F8;
+        --text: #6E4266;
+        --muted: #8A5F80;
+        --line: #F2DCE6;
+        --line-strong: rgba(110, 66, 102, 0.15);
+        --sage: #8A5410;
+        --sage-soft: #FFF0DE;
+        --taupe: #9A8AA0;
+        --shadow: 0 22px 60px rgba(110, 66, 102, 0.10);
+        --shadow-soft: 0 12px 28px rgba(110, 66, 102, 0.08);
         --radius-xl: 34px;
         --radius-lg: 24px;
       }
@@ -68,7 +67,7 @@
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+        font-family: "Baloo 2", system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
         color: var(--text);
         background:
@@ -79,10 +78,10 @@
           ),
           radial-gradient(
             circle at 90% 8%,
-            rgba(227, 228, 216, 0.72),
+            rgba(255, 241, 228, 0.85),
             transparent 26%
           ),
-          linear-gradient(180deg, #fbf8f2 0%, var(--bg) 52%, #f1ece3 100%);
+          linear-gradient(180deg, #F3ECFF 0%, #F7F2FA 46%, #FFF1E4 100%);
       }
 
       a {
@@ -118,13 +117,15 @@
       }
 
       .logo-mark {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-size: 17px;
         line-height: 1;
       }
 
       .logo-word {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-size: 19px;
         letter-spacing: 0.34em;
         font-weight: 400;
@@ -142,7 +143,7 @@
         justify-content: center;
         align-items: center;
         gap: 38px;
-        color: #3d3934;
+        color: #6E4266;
         font-size: 13px;
         font-weight: 500;
       }
@@ -185,14 +186,14 @@
       }
 
       .button-dark {
-        background: #242321;
+        background: #6E4266;
         color: #fff;
-        border-color: #242321;
-        box-shadow: 0 14px 28px rgba(44, 42, 40, 0.17);
+        border-color: #6E4266;
+        box-shadow: 0 14px 28px rgba(110, 66, 102, 0.17);
       }
 
       .button-light {
-        background: rgba(255, 253, 248, 0.68);
+        background: rgba(255, 255, 255, 0.68);
         color: var(--text);
         backdrop-filter: blur(12px);
       }
@@ -225,12 +226,14 @@
       }
 
       .hero-symbol .star {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-size: 18px;
       }
 
       h1 {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-size: clamp(48px, 5.9vw, 88px);
         font-weight: 400;
         letter-spacing: -0.065em;
@@ -240,16 +243,16 @@
 
       .hero-copy {
         width: min(420px, 100%);
-        color: #4d4842;
+        color: #8A5F80;
         font-size: 16px;
         line-height: 1.75;
         margin: 0 0 26px;
       }
 
       .hero-copy em {
-        font-family: "Libre Baskerville", Georgia, serif;
-        color: var(--text);
+        font-family: "Playfair Display", Georgia, serif;
         font-style: italic;
+        color: var(--text);
       }
 
       .hero-actions {
@@ -272,7 +275,7 @@
         margin-top: 24px;
         border-radius: 28px;
         border: 1px solid var(--line);
-        background: rgba(255, 253, 248, 0.66);
+        background: rgba(255, 255, 255, 0.66);
         padding: 16px;
         box-shadow: var(--shadow-soft);
       }
@@ -309,7 +312,7 @@
         min-height: 42px;
         border: 0;
         border-radius: 999px;
-        background: #242321;
+        background: #6E4266;
         color: #fff;
         padding: 0 16px;
         font-size: 13px;
@@ -347,8 +350,8 @@
           ),
           linear-gradient(
             135deg,
-            rgba(255, 253, 248, 0.16),
-            rgba(255, 253, 248, 0.62)
+            rgba(255, 255, 255, 0.16),
+            rgba(255, 255, 255, 0.62)
           );
       }
 
@@ -419,7 +422,7 @@
 
       .map-pin .label {
         border-radius: 999px;
-        background: rgba(255, 253, 248, 0.82);
+        background: rgba(255, 255, 255, 0.82);
         border: 1px solid var(--line);
         padding: 5px 10px;
         color: #6f675f;
@@ -432,7 +435,7 @@
         height: 74px;
         border-radius: 999px;
         border: 8px solid rgba(255, 255, 255, 0.72);
-        background: rgba(255, 253, 248, 0.9);
+        background: rgba(255, 255, 255, 0.9);
         display: grid;
         place-items: center;
         box-shadow: var(--shadow-soft);
@@ -529,7 +532,7 @@
 
       .section-card {
         border-radius: var(--radius-xl);
-        background: rgba(255, 253, 248, 0.64);
+        background: rgba(255, 255, 255, 0.64);
         border: 1px solid rgba(255, 255, 255, 0.76);
         box-shadow: var(--shadow);
         padding: clamp(20px, 3vw, 30px);
@@ -548,7 +551,8 @@
         align-items: center;
         gap: 12px;
         margin: 0;
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-size: clamp(24px, 2.5vw, 34px);
         font-weight: 400;
         letter-spacing: -0.03em;
@@ -565,7 +569,7 @@
         height: 38px;
         border-radius: 999px;
         border: 1px solid var(--line);
-        background: rgba(255, 253, 248, 0.76);
+        background: rgba(255, 255, 255, 0.76);
         color: var(--text);
         cursor: pointer;
         display: grid;
@@ -647,10 +651,10 @@
         left: 12px;
         z-index: 2;
         border-radius: 999px;
-        background: rgba(255, 253, 248, 0.82);
+        background: rgba(255, 255, 255, 0.82);
         border: 1px solid rgba(255, 255, 255, 0.72);
         padding: 6px 10px;
-        color: #6d645b;
+        color: #8A5F80;
         font-size: 10px;
         font-weight: 700;
         text-transform: uppercase;
@@ -662,7 +666,8 @@
       }
 
       .plan-title {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         margin: 0 0 11px;
         font-size: 20px;
         line-height: 1.2;
@@ -699,13 +704,14 @@
         background: linear-gradient(
           135deg,
           rgba(227, 228, 216, 0.52),
-          rgba(255, 253, 248, 0.72)
+          rgba(255, 255, 255, 0.72)
         );
         padding: 22px;
       }
 
       .story-box h3 {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-weight: 400;
         letter-spacing: -0.035em;
         font-size: 24px;
@@ -806,7 +812,8 @@
       }
 
       .category-card h3 {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-size: 23px;
         font-weight: 400;
         letter-spacing: -0.04em;
@@ -827,7 +834,7 @@
         border-radius: var(--radius-xl);
         overflow: hidden;
         border: 1px solid var(--line);
-        background: rgba(255, 253, 248, 0.72);
+        background: rgba(255, 255, 255, 0.72);
         box-shadow: var(--shadow);
         margin-bottom: 26px;
       }
@@ -845,7 +852,7 @@
             rgba(255, 255, 255, 0.34),
             transparent 20%
           ),
-          linear-gradient(135deg, #a99573, #3d3934);
+          linear-gradient(135deg, #E8C9DC, #6E4266);
         background-size: cover;
         background-position: center;
         display: grid;
@@ -878,7 +885,8 @@
       }
 
       .detail-content h2 {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-weight: 400;
         font-size: clamp(32px, 3.2vw, 48px);
         letter-spacing: -0.045em;
@@ -895,8 +903,8 @@
 
       .tag {
         border-radius: 999px;
-        background: rgba(184, 176, 155, 0.18);
-        color: #6d645b;
+        background: #FFF0DE;
+        color: #8A5F80;
         padding: 7px 10px;
         font-size: 10px;
         letter-spacing: 0.12em;
@@ -906,7 +914,7 @@
 
       .project-note {
         border-radius: var(--radius-xl);
-        background: rgba(255, 253, 248, 0.58);
+        background: rgba(255, 255, 255, 0.58);
         border: 1px solid var(--line);
         padding: clamp(24px, 4vw, 40px);
         display: grid;
@@ -916,7 +924,8 @@
       }
 
       .project-note h2 {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         font-size: clamp(30px, 3.2vw, 44px);
         line-height: 1.06;
         font-weight: 400;
@@ -942,7 +951,8 @@
       }
 
       .footer-logo {
-        font-family: "Libre Baskerville", Georgia, serif;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
         letter-spacing: 0.34em;
         color: var(--text);
       }
@@ -1257,11 +1267,9 @@
     <div class="page">
       <header class="header">
         <a class="logo" href="/" aria-label="Pitchmi">
-          <span class="logo-mark">✦</span>
           <span class="logo-line"></span>
           <span class="logo-word">PITCHMI</span>
           <span class="logo-line"></span>
-          <span class="logo-mark">▾</span>
         </a>
 
         <nav class="nav" aria-label="Navegación principal">
@@ -1287,7 +1295,7 @@
         <section class="hero">
           <div class="hero-left">
             <div class="hero-symbol" aria-hidden="true">
-              <span class="star">✦</span>
+              <span class="star">·</span>
               <span class="line"></span>
             </div>
 
@@ -1360,7 +1368,7 @@
         <section id="planes" class="section">
           <div class="section-card">
             <div class="section-header">
-              <h2 class="section-title">✧ Planes destacados</h2>
+              <h2 class="section-title">Planes destacados</h2>
 
               <div class="card-controls" aria-label="Controles de planes">
                 <button id="plansPrev" class="card-control" type="button" aria-label="Ver planes anteriores">
@@ -1391,7 +1399,7 @@
         <section id="categorias" class="section">
           <div class="section-card">
             <div class="section-header">
-              <h2 class="section-title">✧ Explora por categorías</h2>
+              <h2 class="section-title">Explora por categorías</h2>
               <a class="text-link" href="/planes.html">Buscar todos los planes <span>→</span></a>
             </div>
 
@@ -1400,7 +1408,7 @@
         </section>
 
         <section id="eventos" class="detail-preview">
-          <div id="highlightMedia" class="detail-media">✦</div>
+          <div id="highlightMedia" class="detail-media"></div>
 
           <div class="detail-content">
             <div class="eyebrow">Actividad destacada</div>
@@ -1444,8 +1452,8 @@
             </div>
 
             <p class="description" style="max-width: 720px">
-              Guarda planes, publica tus propios pitches y explora qué hay cerca
-              desde el mapa.
+              Apúntate a los planes que te gusten, publica los tuyos y mira qué
+              hay abierto ahora mismo cerca de ti.
             </p>
           </div>
         </section>
@@ -1551,13 +1559,13 @@
         if (value.includes("feria")) return "🎪";
         if (value.includes("ruta")) return "⛰️";
         if (value.includes("gastronom")) return "🍽️";
-        if (value.includes("fiesta") || value.includes("noche")) return "✦";
+        if (value.includes("fiesta") || value.includes("noche")) return "◍";
         if (value.includes("evento")) return "🎟️";
         if (value.includes("deporte")) return "◌";
         if (value.includes("lugar")) return "⌖";
         if (value.includes("experiencia")) return "◇";
 
-        return "✦";
+        return "◌";
       }
 
       function getFirstImage(pitch) {
