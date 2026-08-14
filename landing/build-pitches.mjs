@@ -607,6 +607,18 @@ function createPlanHTML(plan, relatedPlans) {
 <link rel="shortcut icon" type="image/png" href="/favicon.png?v=6" />
 <link rel="apple-touch-icon" href="/favicon.png?v=6" />
 <meta name="theme-color" content="#F8EFF4" />
+
+<!-- La cápsula de descarga que pinta iOS solo. Aquí es donde más rinde: quien
+     llega desde Google buscando el nombre de un sitio ve el botón sin tener
+     que ir a buscarnos a la App Store.
+
+     Falta el tercer parámetro, \`app-argument\`, que es el que haría que a
+     quien ya tiene la app le abra ESTE plan y no el mapa. No se puede todavía:
+     la app solo entiende \`pitchmi://search?q=\` (lib/links.ts) y no tiene
+     universal links declaradas (\`associatedDomains\` en app.config.js). El día
+     que las tenga, aquí va:
+       content="app-id=6754662676, app-argument=\${escapeAttr(plan.url)}" -->
+<meta name="apple-itunes-app" content="app-id=6754662676" />
 <link rel="canonical" href="${escapeAttr(plan.url)}" />
 
     <meta property="og:title" content="${escapeAttr(tituloSEO(plan))}" />
